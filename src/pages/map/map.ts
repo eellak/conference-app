@@ -15,11 +15,14 @@ declare var google: any;
 export class MapPage {
 
   @ViewChild('mapCanvas') mapElement: ElementRef;
+
+
   constructor(public confData: ConferenceData, public platform: Platform) {
   }
 
   ionViewDidLoad() {
 
+    try {
       this.confData.getMap().subscribe((mapData: any) => {
         let mapEle = this.mapElement.nativeElement;
 
@@ -48,7 +51,10 @@ export class MapPage {
           mapEle.classList.add('show-map');
         });
 
-      });
+      })
+    }catch(e){
+      console.log(e);
+    }
 
   }
 }

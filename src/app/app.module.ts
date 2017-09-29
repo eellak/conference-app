@@ -6,6 +6,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import {AngularFireModule} from "angularfire2";
 
 import { IonicStorageModule } from '@ionic/storage';
 
@@ -28,6 +29,8 @@ import { SupportPage } from '../pages/support/support';
 
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
+import {FIREBASE_CREDENTIALS} from "./firebase.credentials";
+import  {AngularFireDatabaseModule} from "angularfire2/database";
 
 
 @NgModule({
@@ -68,7 +71,9 @@ import { UserData } from '../providers/user-data';
         { component: SignupPage, name: 'SignupPage', segment: 'signup' }
       ]
     }),
-    IonicStorageModule.forRoot()
+    AngularFireModule.initializeApp(FIREBASE_CREDENTIALS),
+    IonicStorageModule.forRoot(),
+    AngularFireDatabaseModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -5,20 +5,20 @@
     </button>
 
     <ion-segment [(ngModel)]="segment" (ionChange)="updateSchedule()">
-      <ion-segment-button value="all">
-        All
+      <ion-segment-button value="day_one">
+        3 November
       </ion-segment-button>
-      <ion-segment-button value="favorites">
-        Favorites
+      <ion-segment-button value="day_two">
+        4 November
       </ion-segment-button>
     </ion-segment>
 
+<!--
     <ion-buttons end>
       <button ion-button icon-only (click)="presentFilter()">
         <ion-icon ios="ios-options-outline" md="md-options"></ion-icon>
       </button>
     </ion-buttons>
-  </ion-navbar>
 
   <ion-toolbar no-border-top>
     <ion-searchbar color="primary"
@@ -26,27 +26,34 @@
                    (ionInput)="updateSchedule()"
                    placeholder="Search">
     </ion-searchbar>
-  </ion-toolbar>
+  </ion-toolbar> -->
+  </ion-navbar>
+
+
 </ion-header>
 
 <ion-content>
+  <!--
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
+  </ion-refresher> -->
+  <div [ngSwitch]="segment">
+  <ion-list [hidden]="shownSessions === 0" *ngSwitchCase="'day_one'">
 
-  <ion-list #scheduleList [hidden]="shownSessions === 0">
+    <ion-item-group *ngFor="let group of scheduleDataFirst | async" > <!--[hidden]="group.hide" -->
 
-    <ion-item-group *ngFor="let group of groups" [hidden]="group.hide">
-
-      <ion-item-divider sticky>
-        <ion-label>
-          {{group.time}}
-        </ion-label>
+      <ion-item-divider sticky class="ion_item_schedule">
+          <h2 class="ion_item_schedule_time">          {{group.time}}  </h2>
       </ion-item-divider>
 
-      <ion-item-sliding *ngFor="let session of group.sessions" #slidingItem [attr.track]="session.tracks[0] | lowercase" [hidden]="session.hide">
 
-        <button ion-item (click)="goToSessionDetail(session)">
+
+      <ion-item *ngFor="let session of group.sessions" #slidingItem  >
+
+        <button ion-item  (click)="goToSessionDetail(session)" >
+          <ion-icon small item-start color="{{session.color}}" name="{{session.icon}}">
+
+          </ion-icon>
           <h3>{{session.name}}</h3>
           <p>
             {{session.timeStart}} &mdash;
@@ -55,6 +62,7 @@
           </p>
         </button>
 
+        <!--
         <ion-item-options>
           <button ion-button color="favorite" (click)="addFavorite(slidingItem, session)" *ngIf="segment === 'all'">
             Favorite
@@ -63,26 +71,87 @@
             Remove
           </button>
         </ion-item-options>
+        -->
 
-      </ion-item-sliding>
+      </ion-item>
+
 
     </ion-item-group>
 
   </ion-list>
+    <!--
+     <ion-list-header [hidden]="shownSessions">
+         No Sessions Found
+     </ion-list-h>
 
-  <ion-list-header [hidden]="shownSessions > 0">
-      No Sessions Found
-  </ion-list-header>
+     <!--
+     <ion-fab bottom right #fab>
+       <button ion-fab><ion-icon name="share"></ion-icon></button>
+       <ion-fab-list side="top">
+         <button ion-fab color="vimeo" (click)="openSocial('Vimeo', fab)"><ion-icon name="logo-vimeo"></ion-icon></button>
+         <button ion-fab color="google" (click)="openSocial('Google+', fab)"><ion-icon name="logo-googleplus"></ion-icon></button>
+         <button ion-fab color="twitter" (click)="openSocial('Twitter', fab)"><ion-icon name="logo-twitter"></ion-icon></button>
+         <button ion-fab color="facebook" (click)="openSocial('Facebook', fab)"><ion-icon name="logo-facebook"></ion-icon></button>
+       </ion-fab-list>
+     </ion-fab> -->
+  </div>
 
-  <ion-fab bottom right #fab>
-    <button ion-fab><ion-icon name="share"></ion-icon></button>
-    <ion-fab-list side="top">
-      <button ion-fab color="vimeo" (click)="openSocial('Vimeo', fab)"><ion-icon name="logo-vimeo"></ion-icon></button>
-      <button ion-fab color="google" (click)="openSocial('Google+', fab)"><ion-icon name="logo-googleplus"></ion-icon></button>
-      <button ion-fab color="twitter" (click)="openSocial('Twitter', fab)"><ion-icon name="logo-twitter"></ion-icon></button>
-      <button ion-fab color="facebook" (click)="openSocial('Facebook', fab)"><ion-icon name="logo-facebook"></ion-icon></button>
-    </ion-fab-list>
-  </ion-fab>
+  <div [ngSwitch]="segment">
+    <ion-list [hidden]="shownSessions === 0" *ngSwitchCase="'day_two'">
 
+      <ion-item-group *ngFor="let group of scheduleDataSec | async" > <!--[hidden]="group.hide" -->
+
+        <ion-item-divider sticky class="ion_item_schedule">
+          <h2 class="ion_item_schedule_time">          {{group.time}}  </h2>
+        </ion-item-divider>
+
+
+
+        <ion-item *ngFor="let session of group.sessions" #slidingItem  >
+
+          <button ion-item  (click)="goToSessionDetail(session)" >
+            <ion-icon small item-start color="{{session.color}}" name="{{session.icon}}">
+
+            </ion-icon>
+            <h3>{{session.name}}</h3>
+            <p>
+              {{session.timeStart}} &mdash;
+              {{session.timeEnd}}:
+              {{session.location}}
+            </p>
+          </button>
+
+          <!--
+          <ion-item-options>
+            <button ion-button color="favorite" (click)="addFavorite(slidingItem, session)" *ngIf="segment === 'all'">
+              Favorite
+            </button>
+            <button ion-button color="danger" (click)="removeFavorite(slidingItem, session, 'Remove Favorite')" *ngIf="segment === 'favorites'">
+              Remove
+            </button>
+          </ion-item-options>
+          -->
+
+        </ion-item>
+
+
+      </ion-item-group>
+
+    </ion-list>
+    <!--
+       <ion-list-header [hidden]="shownSessions">
+         No Sessions Found
+       </ion-list-he
+       <!--
+       <ion-fab bottom right #fab>
+         <button ion-fab><ion-icon name="share"></ion-icon></button>
+         <ion-fab-list side="top">
+           <button ion-fab color="vimeo" (click)="openSocial('Vimeo', fab)"><ion-icon name="logo-vimeo"></ion-icon></button>
+           <button ion-fab color="google" (click)="openSocial('Google+', fab)"><ion-icon name="logo-googleplus"></ion-icon></button>
+           <button ion-fab color="twitter" (click)="openSocial('Twitter', fab)"><ion-icon name="logo-twitter"></ion-icon></button>
+           <button ion-fab color="facebook" (click)="openSocial('Facebook', fab)"><ion-icon name="logo-facebook"></ion-icon></button>
+         </ion-fab-list>
+       </ion-fab> -->
+  </div>
 
 </ion-content>

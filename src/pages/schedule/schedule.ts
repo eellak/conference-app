@@ -13,6 +13,7 @@ import { UserData } from '../../providers/user-data';
 
 import { SessionDetailPage } from '../session-detail/session-detail';
 import { ScheduleFilterPage } from '../schedule-filter/schedule-filter';
+import {AngularFireDatabase, FirebaseListObservable} from "angularfire2/database";
 
 
 @Component({
@@ -28,11 +29,18 @@ export class SchedulePage {
 
   dayIndex = 0;
   queryText = '';
-  segment = 'all';
+
   excludeTracks: any = [];
   shownSessions: any = [];
   groups: any = [];
   confDate: string;
+
+  scheduleDataFirst : FirebaseListObservable<any[]>;
+  scheduleDataSec : FirebaseListObservable<any[]>;
+
+  segment = 'day_one';
+  day_two = 'day_two';
+  loader :any;
 
   constructor(
     public alertCtrl: AlertController,
@@ -43,11 +51,35 @@ export class SchedulePage {
     public toastCtrl: ToastController,
     public confData: ConferenceData,
     public user: UserData,
-  ) {}
+
+    public database : AngularFireDatabase) {
+
+    //Loader
+    this.loader = this.loadingCtrl.create({
+      content: "Please wait...",
+      duration: 2500
+    });
+    this.loader.present();
+
+    this.scheduleDataFirst = this.database.list(`/schedule-day-1/0/groups`);
+    this.scheduleDataFirst.subscribe( data =>{
+      this.shownSessions = data;
+      return data;
+    });
+
+    this.scheduleDataSec = this.database.list(`/schedule-day-2/0/groups`);
+    this.scheduleDataSec.subscribe( data =>{
+      this.shownSessions = data;
+      return data;
+    });
+    this.loader.dismiss();
+
+
+  }
 
   ionViewDidLoad() {
     this.app.setTitle('Schedule');
-    this.updateSchedule();
+    //this.updateSchedule();
   }
 
   updateSchedule() {
@@ -77,7 +109,11 @@ export class SchedulePage {
     // go to the session detail page
     // and pass in the session data
 
-    this.navCtrl.push(SessionDetailPage, { sessionId: sessionData.id, name: sessionData.name });
+    this.navCtrl.push(SessionDetailPage, {
+       // sessionId: sessionData.id,
+       // name: sessionData.name
+      session: sessionData
+    });
   }
 
   addFavorite(slidingItem: ItemSliding, sessionData: any) {

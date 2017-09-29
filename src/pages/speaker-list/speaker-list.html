@@ -8,11 +8,12 @@
 </ion-header>
 
 <ion-content class="outer-content speaker-list">
-  <ion-list [virtualScroll]="speakers">
-    <ion-grid fixed>
+  <ion-list >
+    <ion-grid fixed *ngFor="let speaker of speakers$Ref | async">
       <ion-row align-items-stretch>
-
-        <ion-col col-12 col-md-6 align-self-stretch align-self-center *virtualItem="let speaker" approxItemHeight="457px">
+        <!--[virtualScroll]="speakers"
+        <ion-col col-12 col-md-6 align-self-stretch align-self-center *virtualItem="let speaker" approxItemHeight="457px">         </ion-col>
+ -->
 
           <ion-card class="speaker-card">
             <ion-card-header>
@@ -20,22 +21,28 @@
                 <ion-avatar item-start>
                   <img [src]="speaker.profilePic" alt="Speaker profile pic">
                 </ion-avatar>
-                {{speaker.name}}
+                <h2> {{speaker.name}} </h2>
               </button>
             </ion-card-header>
 
             <ion-card-content class="outer-content">
               <ion-list>
-                <button ion-item *ngFor="let session of speaker.sessions" (click)="goToSessionDetail(session)">
-                  <h3>{{session.name}}</h3>
+                <ion-note class="speaker_desc"> {{speaker.desc}} </ion-note>
+                <ion-item-divider sticky>
+                  Speaker's Sessions
+                </ion-item-divider>
+                <button ion-item *ngFor="let session of speaker.session" (click)="goToSessionDetail(session)">
+                  <h3>{{session.title}}</h3>
                 </button>
-
+                <!--
                 <button ion-item (click)="goToSpeakerDetail(speaker)">
                   <h3>About {{speaker.name}}</h3>
-                </button>
+                </button> -->
+
               </ion-list>
             </ion-card-content>
 
+            <!--
             <ion-row no-padding>
               <ion-col col-12 col-lg-auto text-center text-lg-left>
                 <button ion-button clear small color="primary" icon-start (click)="goToSpeakerTwitter(speaker)">
@@ -55,11 +62,10 @@
                   Contact
                 </button>
               </ion-col>
-            </ion-row>
+            </ion-row> -->
 
           </ion-card>
 
-        </ion-col>
       </ion-row>
     </ion-grid>
   </ion-list>

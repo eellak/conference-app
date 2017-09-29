@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 import {
   ActionSheet,
   ActionSheetController,
   ActionSheetOptions,
-  Config,
+  Config, LoadingController,
   NavController
 } from 'ionic-angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
@@ -13,8 +13,13 @@ import { ConferenceData } from '../../providers/conference-data';
 
 import { SessionDetailPage } from '../session-detail/session-detail';
 import { SpeakerDetailPage } from '../speaker-detail/speaker-detail';
+import {AngularFireDatabase, FirebaseListObservable} from "angularfire2/database";
+import "rxjs/add/operator/map"
+import "rxjs/add/operator/take"
+import "rxjs/add/operator/mergeMap"
+import "rxjs"
 
-// TODO remove
+
 export interface ActionSheetButton {
   text?: string;
   role?: string;
@@ -27,22 +32,45 @@ export interface ActionSheetButton {
   selector: 'page-speaker-list',
   templateUrl: 'speaker-list.html'
 })
-export class SpeakerListPage {
+export class SpeakerListPage{
   actionSheet: ActionSheet;
   speakers: any[] = [];
+
+  speakers$Ref: FirebaseListObservable<any[]>;
+  sessspeakers$Ref: FirebaseListObservable<any[]>;
+
+  loader : any;
 
   constructor(
     public actionSheetCtrl: ActionSheetController,
     public navCtrl: NavController,
     public confData: ConferenceData,
     public config: Config,
-    public inAppBrowser: InAppBrowser
-  ) {}
+    public inAppBrowser: InAppBrowser,
+    public loadingCtrl : LoadingController,
+
+    public database : AngularFireDatabase,
+    public databasesess : AngularFireDatabase,
+  ) {
+
+
+    this.loader = this.loadingCtrl.create({
+      content: "Please wait...",
+      duration: 3000
+    });
+    this.loader.present();
+
+    this.speakers$Ref = <FirebaseListObservable<any[]>> this.database.list(`/speakers/`);
+
+    this.speakers$Ref.subscribe();
+    this.loader.dismiss();
+  }
+
 
   ionViewDidLoad() {
-    this.confData.getSpeakers().subscribe((speakers: any[]) => {
+    /*this.confData.getSpeakers().subscribe((speakers: any[]) => {
       this.speakers = speakers;
-    });
+    });*/
   }
 
   goToSessionDetail(session: any) {

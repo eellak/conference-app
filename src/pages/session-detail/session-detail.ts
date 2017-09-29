@@ -13,12 +13,19 @@ import { ConferenceData } from '../../providers/conference-data';
 export class SessionDetailPage {
   session: any;
 
+  sessionParam: any;
   constructor(
     public dataProvider: ConferenceData,
     public navParams: NavParams
-  ) {}
+  ) {
+
+    this.sessionParam = this.navParams.get('session');
+
+  }
 
   ionViewWillEnter() {
+
+    /*
     this.dataProvider.load().subscribe((data: any) => {
       if (
         data &&
@@ -37,6 +44,7 @@ export class SessionDetailPage {
           }
         }
       }
-    });
+    }); */
+
   }
 }
