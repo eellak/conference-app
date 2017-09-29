@@ -13,7 +13,10 @@ import { ConferenceData } from '../../providers/conference-data';
 export class SpeakerDetailPage {
   speaker: any;
 
-  constructor(public dataProvider: ConferenceData, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public dataProvider: ConferenceData,
+              public navCtrl: NavController,
+              public navParams: NavParams) {
+
   }
 
   ionViewWillEnter() {

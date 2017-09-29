@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavParams } from 'ionic-angular';
 
-import { ConferenceData } from '../../providers/conference-data';
+import {AngularFireDatabase, FirebaseObjectObservable} from "angularfire2/database";
 
 @IonicPage({
   segment: 'session/:sessionId'
@@ -14,12 +14,26 @@ export class SessionDetailPage {
   session: any;
 
   sessionParam: any;
+  sessionKey: any;
+  speaker: any;
+  SessionObj : FirebaseObjectObservable<any>;
   constructor(
-    public dataProvider: ConferenceData,
-    public navParams: NavParams
+    public navParams: NavParams,
+    public data : AngularFireDatabase
   ) {
+    if(this.navParams.get('session')){
+      this.sessionParam = this.navParams.get('session');
+    }else{
+      this.sessionKey = this.navParams.get('sessionPath');
+      this.speaker = this.navParams.get('speaker');
+      this.SessionObj = <FirebaseObjectObservable<any>> this.data.object(`${this.sessionKey}`).take(1);
+      this.SessionObj.subscribe(x =>{
+        console.log(x);
+      });
+      console.log(this.sessionParam);
 
-    this.sessionParam = this.navParams.get('session');
+    }
+    console.log(this.sessionKey);
 
   }
 

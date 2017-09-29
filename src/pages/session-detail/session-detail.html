@@ -1,19 +1,35 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title *ngIf="sessionParam">{{sessionParam.name}}</ion-title>
+  <ion-navbar *ngIf="SessionObj">
+    <ion-title >{{(SessionObj | async)?.name}}</ion-title>
+  </ion-navbar>
+
+  <ion-navbar *ngIf="sessionParam">
+    <ion-title >{{sessionParam?.name}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <div *ngIf="sessionParam">
-    <h1>{{sessionParam.name}}</h1>
-    <h4 *ngFor="let speaker of sessionParam?.speakers">
-    {{speaker.name}}
+
+  <div *ngIf="SessionObj">
+    <h1>{{(SessionObj | async)?.name}}</h1>
+    <h4>
+    {{speaker}}
   </h4>
     <p>
-      {{sessionParam.timeStart}} - {{sessionParam.timeEnd}}
+      {{(SessionObj | async)?.timeStart}} - {{(SessionObj | async)?.timeEnd}}
     </p>
-    <p>{{sessionParam.location}}</p>
-    <p>{{sessionParam.description}}</p>
+    <p>{{(SessionObj | async)?.location}}</p>
+    <p>{{(SessionObj | async)?.description}}</p>
+  </div>
+  <div *ngIf="sessionParam">
+    <h1>{{sessionParam?.name}}</h1>
+    <h4>
+      {{speaker}}
+    </h4>
+    <p>
+      {{sessionParam?.timeStart}} - {{sessionParam?.timeEnd}}
+    </p>
+    <p>{{sessionParam?.location}}</p>
+    <p>{{sessionParam?.description}}</p>
   </div>
 </ion-content>

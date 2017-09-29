@@ -73,9 +73,11 @@ export class SpeakerListPage{
     });*/
   }
 
-  goToSessionDetail(session: any) {
+  goToSessionDetail(session: any, speakerName: any) {
+    console.log(session);
     this.navCtrl.push(SessionDetailPage, {
-      sessionId: session.id
+      sessionPath: session.sessionKey,
+      speaker : speakerName
     });
   }
 
