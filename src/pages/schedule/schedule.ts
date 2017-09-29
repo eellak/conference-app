@@ -31,7 +31,8 @@ export class SchedulePage {
   queryText = '';
 
   excludeTracks: any = [];
-  shownSessions: any = [];
+  shownSessionsDay_1: any = false;
+  shownSessionsDay_2: any = false;
   groups: any = [];
   confDate: string;
 
@@ -63,13 +64,17 @@ export class SchedulePage {
 
     this.scheduleDataFirst = this.database.list(`/schedule-day-1/0/groups`);
     this.scheduleDataFirst.subscribe( data =>{
-      this.shownSessions = data;
+      if(data){
+        this.shownSessionsDay_1 = true;
+      }
       return data;
     });
 
     this.scheduleDataSec = this.database.list(`/schedule-day-2/0/groups`);
     this.scheduleDataSec.subscribe( data =>{
-      this.shownSessions = data;
+      if(data){
+        this.shownSessionsDay_2 = true;
+      }
       return data;
     });
     this.loader.dismiss();
@@ -87,7 +92,7 @@ export class SchedulePage {
     this.scheduleList && this.scheduleList.closeSlidingItems();
 
     this.confData.getTimeline(this.dayIndex, this.queryText, this.excludeTracks, this.segment).subscribe((data: any) => {
-      this.shownSessions = data.shownSessions;
+      //this.shownSessions = data.shownSessions;
       this.groups = data.groups;
     });
   }
@@ -186,7 +191,7 @@ export class SchedulePage {
 
   doRefresh(refresher: Refresher) {
     this.confData.getTimeline(this.dayIndex, this.queryText, this.excludeTracks, this.segment).subscribe((data: any) => {
-      this.shownSessions = data.shownSessions;
+      //this.shownSessions = data.shownSessions;
       this.groups = data.groups;
 
       // simulate a network request that would take longer

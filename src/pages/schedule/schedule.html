@@ -38,12 +38,12 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher> -->
   <div [ngSwitch]="segment">
-  <ion-list [hidden]="shownSessions === 0" *ngSwitchCase="'day_one'">
+  <ion-list *ngSwitchCase="'day_one'">
 
     <ion-item-group *ngFor="let group of scheduleDataFirst | async" > <!--[hidden]="group.hide" -->
 
       <ion-item-divider sticky class="ion_item_schedule">
-          <h2 class="ion_item_schedule_time">          {{group.time}}  </h2>
+          <h2 class="ion_item_schedule_time">        <b>{{group.time}}</b>    </h2>
       </ion-item-divider>
 
 
@@ -79,10 +79,10 @@
     </ion-item-group>
 
   </ion-list>
-    <!--
-     <ion-list-header [hidden]="shownSessions">
+
+     <ion-list-header  *ngIf="!shownSessionsDay_2">
          No Sessions Found
-     </ion-list-h>
+     </ion-list-header>
 
      <!--
      <ion-fab bottom right #fab>
@@ -97,12 +97,12 @@
   </div>
 
   <div [ngSwitch]="segment">
-    <ion-list [hidden]="shownSessions === 0" *ngSwitchCase="'day_two'">
+    <ion-list *ngSwitchCase="'day_two'">
 
       <ion-item-group *ngFor="let group of scheduleDataSec | async" > <!--[hidden]="group.hide" -->
 
         <ion-item-divider sticky class="ion_item_schedule">
-          <h2 class="ion_item_schedule_time">          {{group.time}}  </h2>
+          <h2 class="ion_item_schedule_time">          <b>{{group.time}}</b>  </h2>
         </ion-item-divider>
 
 
@@ -138,10 +138,11 @@
       </ion-item-group>
 
     </ion-list>
-    <!--
-       <ion-list-header [hidden]="shownSessions">
+
+       <ion-list-header *ngIf="!shownSessionsDay_2">
          No Sessions Found
-       </ion-list-he
+       </ion-list-header>
+
        <!--
        <ion-fab bottom right #fab>
          <button ion-fab><ion-icon name="share"></ion-icon></button>

@@ -74,7 +74,9 @@ export class SpeakerListPage{
   }
 
   goToSessionDetail(session: any) {
-    this.navCtrl.push(SessionDetailPage, { sessionId: session.id });
+    this.navCtrl.push(SessionDetailPage, {
+      sessionId: session.id
+    });
   }
 
   goToSpeakerDetail(speaker: any) {
