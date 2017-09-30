@@ -17,9 +17,12 @@ export class SpeakerDetailPage {
               public navCtrl: NavController,
               public navParams: NavParams) {
 
+  this.speaker = this.navParams.get('speaker');
+
   }
 
   ionViewWillEnter() {
+    /*
     this.dataProvider.load().subscribe((data: any) => {
       if (data && data.speakers) {
         for (const speaker of data.speakers) {
@@ -29,7 +32,7 @@ export class SpeakerDetailPage {
           }
         }
       }
-    });
+    });*/
 
   }
 

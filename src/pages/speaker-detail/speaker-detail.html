@@ -7,17 +7,19 @@
 <ion-content padding class="speaker-detail">
   <div text-center *ngIf="speaker">
     <img [src]="speaker.profilePic" [alt]="speaker.name"><br>
+    <div> </div>
 
-    <button ion-button icon-only clear small color="twitter">
-      <ion-icon name="logo-twitter"></ion-icon>
-    </button>
-    <button ion-button icon-only clear small color="github">
-      <ion-icon name="logo-github"></ion-icon>
-    </button>
-    <button ion-button icon-only clear small color="instagram">
-      <ion-icon name="logo-instagram"></ion-icon>
-    </button>
+    <p text-start padding-left padding-right>{{speaker?.about}}</p>
+
+    <div> </div>
+    <div> </div>
+    <ion-item-divider sticky>
+      Speaker's Sessions
+    </ion-item-divider>
+
+    <ion-item *ngFor="let session of speaker.session">
+      <h2>{{session.title}}</h2>
+    </ion-item>
   </div>
 
-  <p>{{speaker?.about}}</p>
 </ion-content>

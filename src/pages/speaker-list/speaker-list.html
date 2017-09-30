@@ -33,11 +33,8 @@
                 </ion-item-divider>
                 <button ion-item *ngFor="let session of speaker.session" (click)="goToSessionDetail(session,speaker.name)">
                   <h3>{{session.title}}</h3>
+                  <ion-icon item-end name="arrow-forward" ></ion-icon>
                 </button>
-                <!--
-                <button ion-item (click)="goToSpeakerDetail(speaker)">
-                  <h3>About {{speaker.name}}</h3>
-                </button> -->
 
               </ion-list>
             </ion-card-content>

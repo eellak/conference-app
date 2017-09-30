@@ -60,7 +60,11 @@ export class SpeakerListPage{
     });
     this.loader.present();
 
-    this.speakers$Ref = <FirebaseListObservable<any[]>> this.database.list(`/speakers/`);
+    this.speakers$Ref = <FirebaseListObservable<any[]>> this.database.list(`/speakers/`,{
+      query:{
+        orderByKey: true
+      }
+    });
 
     this.speakers$Ref.subscribe();
     this.loader.dismiss();
@@ -82,7 +86,9 @@ export class SpeakerListPage{
   }
 
   goToSpeakerDetail(speaker: any) {
-    this.navCtrl.push(SpeakerDetailPage, { speakerId: speaker.id });
+    this.navCtrl.push(SpeakerDetailPage, {
+      speaker: speaker
+    });
   }
 
   goToSpeakerTwitter(speaker: any) {

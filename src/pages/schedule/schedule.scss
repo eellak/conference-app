@@ -1,4 +1,4 @@
-$SIDEMENU_TOP: #bababa;
+$SIDEMENU_TOP: #d8d8d8;//#bababa;
 $SIDEMENU_BOTTOM: #ffffff;
 $SIDEMENU_TRANSPARENCY: rgba(255,255,255,0.4);
 
@@ -30,7 +30,7 @@ page-schedule {
 
 .ion_item_schedule{
   //background-color:  #d3d3d3;
-  background: -webkit-gradient(bottom top, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+  background: -webkit-gradient(bottom right, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
   background: -o-linear-gradient(bottom right, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
   background: -moz-linear-gradient(bottom right, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
   background: linear-gradient(to bottom right, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
@@ -38,5 +38,5 @@ page-schedule {
 
 .ion_item_schedule_time{
   color : #ffffff;
-  font-weight: bold;
+  font-weight: 300;
 }
