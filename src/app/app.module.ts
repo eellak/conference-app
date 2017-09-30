@@ -31,6 +31,7 @@ import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
 import {FIREBASE_CREDENTIALS} from "./firebase.credentials";
 import  {AngularFireDatabaseModule} from "angularfire2/database";
+import {Network} from "@ionic-native/network";
 
 
 @NgModule({
@@ -98,7 +99,8 @@ import  {AngularFireDatabaseModule} from "angularfire2/database";
     ConferenceData,
     UserData,
     InAppBrowser,
-    SplashScreen
+    SplashScreen,
+    Network
   ]
 })
 export class AppModule { }

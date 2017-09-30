@@ -9,7 +9,6 @@ import { TabsPage } from '../pages/tabs-page/tabs-page';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { SchedulePage } from '../pages/schedule/schedule';
 import { SpeakerListPage } from '../pages/speaker-list/speaker-list';
-import { UserData } from '../providers/user-data';
 
 export interface PageInterface {
   title: string;
@@ -42,7 +41,6 @@ export class ConferenceApp {
   rootPage: any;
 
   constructor(
-    public userData: UserData,
     public menu: MenuController,
     public platform: Platform,
     public splashScreen: SplashScreen
@@ -87,11 +85,11 @@ export class ConferenceApp {
         console.log(`Didn't set nav root: ${err}`);
       });
     }
-
+    /*
     if (page.logsOut === true) {
       // Give the menu time to close before changing to logged out
       this.userData.logout();
-    }
+    }*/
 
   }
 

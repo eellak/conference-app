@@ -2,6 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 
 import { AlertController, App, FabContainer, ItemSliding, List, ModalController, NavController, ToastController, LoadingController, Refresher } from 'ionic-angular';
 
+import { Network } from '@ionic-native/network';
+
 /*
   To learn how to use third party libs in an
   Ionic app check out our docs here: http://ionicframework.com/docs/v2/resources/third-party-libs/
@@ -53,8 +55,43 @@ export class SchedulePage {
     public confData: ConferenceData,
     public user: UserData,
 
-    public database : AngularFireDatabase) {
+    public database : AngularFireDatabase,
+    private network: Network) {
 
+
+
+        let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
+          //console.log('network was disconnected :-(');
+          let alert = this.alertCtrl.create({
+            title: 'Your Internet Is Closed ',
+            subTitle: 'Please turn on your Wifi',
+            buttons: ['OK']
+          });
+          alert.present();
+
+
+        });
+        disconnectSubscription.unsubscribe();
+
+        // stop disconnect watch
+
+
+        // watch network for a connection
+        let connectSubscription = this.network.onConnect().subscribe(() => {
+          console.log('network connected!');
+          // We just got a connection but we need to wait briefly
+          // before we determine the connection type. Might need to wait.
+          // prior to doing any api requests as well.
+          setTimeout(() => {
+            if (this.network.type === 'wifi') {
+              console.log('we got a wifi connection, woohoo!');
+            }
+          }, 3000);
+
+        });
+        connectSubscription.unsubscribe();
+
+        // stop connect watch
     //Loader
     this.loader = this.loadingCtrl.create({
       content: "Please wait...",
@@ -78,6 +115,7 @@ export class SchedulePage {
       return data;
     });
     this.loader.dismiss();
+
 
 
   }

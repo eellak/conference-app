@@ -1,10 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { MenuController, NavController, Slides } from 'ionic-angular';
+import {AlertController, MenuController, NavController, Slides} from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
 
 import { TabsPage } from '../tabs-page/tabs-page';
+import {Network} from "@ionic-native/network";
 
 @Component({
   selector: 'page-tutorial',
@@ -19,8 +20,44 @@ export class TutorialPage {
   constructor(
     public navCtrl: NavController,
     public menu: MenuController,
-    public storage: Storage
-  ) { }
+    public storage: Storage,
+    public network: Network,
+    public alertCtrl : AlertController
+  ) {
+
+
+
+    let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
+      //console.log('network was disconnected :-(');
+      let alert = this.alertCtrl.create({
+        title: 'Your Internet Is Closed . .',
+        subTitle: 'Please Turn Your Internet Data On ',
+        buttons: ['OK']
+      });
+      alert.present();
+
+      disconnectSubscription.unsubscribe();
+
+    });
+
+    // stop disconnect watch
+
+
+    // watch network for a connection
+    let connectSubscription = this.network.onConnect().subscribe(() => {
+      console.log('network connected!');
+      // We just got a connection but we need to wait briefly
+      // before we determine the connection type. Might need to wait.
+      // prior to doing any api requests as well.
+      setTimeout(() => {
+        if (this.network.type === 'wifi') {
+          console.log('we got a wifi connection, woohoo!');
+        }
+      }, 1000);
+      connectSubscription.unsubscribe();
+
+    });
+  }
 
   startApp() {
 
