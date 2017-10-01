@@ -99,7 +99,11 @@ export class SchedulePage {
     });
     this.loader.present();
 
-    this.scheduleDataFirst = this.database.list(`/schedule-day-1/0/groups`);
+    this.scheduleDataFirst = this.database.list(`/schedule-day-1/0/groups`,{
+      query:{
+        orderByKey:true
+      }
+    });
     this.scheduleDataFirst.subscribe( data =>{
       if(data){
         this.shownSessionsDay_1 = true;
@@ -107,7 +111,11 @@ export class SchedulePage {
       return data;
     });
 
-    this.scheduleDataSec = this.database.list(`/schedule-day-2/0/groups`);
+    this.scheduleDataSec = this.database.list(`/schedule-day-2/0/groups`,{
+      query:{
+        orderByKey:true
+      }
+    });
     this.scheduleDataSec.subscribe( data =>{
       if(data){
         this.shownSessionsDay_2 = true;
