@@ -6,10 +6,10 @@
 
     <ion-segment [(ngModel)]="segment" (ionChange)="updateSchedule()">
       <ion-segment-button value="day_one">
-        3 November
+        4 November
       </ion-segment-button>
       <ion-segment-button value="day_two">
-        4 November
+        5 November
       </ion-segment-button>
     </ion-segment>
 
@@ -58,6 +58,8 @@
           <p>
             {{session.timeStart}} &mdash;
             {{session.timeEnd}}:
+          </p>
+          <p text-end>
             {{session.location}}
           </p>
         </button>
@@ -117,7 +119,7 @@
             <p>
               {{session.timeStart}} &mdash;
               {{session.timeEnd}}:
-              {{session.location}}
+               <b> {{session.location}}</b>
             </p>
           </button>
 

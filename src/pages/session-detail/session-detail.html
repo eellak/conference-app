@@ -11,7 +11,7 @@
 <ion-content padding>
 
   <div *ngIf="SessionObj">
-    <h1>{{(SessionObj | async)?.name}}</h1>
+    <h1><b>{{(SessionObj | async)?.name}}</b></h1>
     <h4>
     {{speaker}}
   </h4>
@@ -22,7 +22,7 @@
     <p>{{(SessionObj | async)?.description}}</p>
   </div>
   <div *ngIf="sessionParam">
-    <h1>{{sessionParam?.name}}</h1>
+    <h1 text-center > <b>{{sessionParam?.name}} </b></h1>
     <h4>
       {{speaker}}
     </h4>
