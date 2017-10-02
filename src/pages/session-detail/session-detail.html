@@ -18,7 +18,9 @@
     <p>
       {{(SessionObj | async)?.timeStart}} - {{(SessionObj | async)?.timeEnd}}
     </p>
+    <div></div>
     <p>{{(SessionObj | async)?.location}}</p>
+    <div></div>
     <p>{{(SessionObj | async)?.description}}</p>
   </div>
   <div *ngIf="sessionParam">
@@ -29,7 +31,9 @@
     <p>
       {{sessionParam?.timeStart}} - {{sessionParam?.timeEnd}}
     </p>
+    <div></div>
     <p>{{sessionParam?.location}}</p>
+    <div></div>
     <p>{{sessionParam?.description}}</p>
   </div>
 </ion-content>

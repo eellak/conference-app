@@ -30,6 +30,7 @@ page-speaker-list {
   }
 
   .speaker_desc{
-    padding-left: 10%;
+    text-overflow: ellipsis;
+
   }
 }

@@ -27,7 +27,18 @@
 
             <ion-card-content class="outer-content">
               <ion-list>
-                <ion-note class="speaker_desc"> {{speaker.desc}} </ion-note>
+                <ion-grid no-padding no-margin>
+                  <ion-row>
+                    <ion-col col-1>
+                    </ion-col>
+                    <ion-col>
+                      <ion-note class="speaker_desc"  text-wrap>
+                        {{speaker.desc}}
+                      </ion-note>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+
                 <ion-item-divider sticky>
                   Speaker's Sessions
                 </ion-item-divider>
