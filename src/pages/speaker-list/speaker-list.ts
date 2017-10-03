@@ -40,7 +40,7 @@ export class SpeakerListPage{
   sessspeakers$Ref: FirebaseListObservable<any[]>;
 
   loader : any;
-
+  speakersListVal:any;
   constructor(
     public actionSheetCtrl: ActionSheetController,
     public navCtrl: NavController,
@@ -66,7 +66,12 @@ export class SpeakerListPage{
       }
     });
 
-    this.speakers$Ref.subscribe();
+    this.speakers$Ref.subscribe(data =>{
+      if(data){
+        this.speakersListVal = true;
+      }
+      return data;
+    });
     this.loader.dismiss();
   }
 

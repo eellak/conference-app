@@ -9,12 +9,14 @@
 
 <ion-content class="outer-content speaker-list">
   <ion-list >
+    <ion-list-header *ngIf="!speakersListVal">
+      No Sessions Found
+    </ion-list-header>
     <ion-grid fixed *ngFor="let speaker of speakers$Ref | async">
       <ion-row align-items-stretch>
         <!--[virtualScroll]="speakers"
         <ion-col col-12 col-md-6 align-self-stretch align-self-center *virtualItem="let speaker" approxItemHeight="457px">         </ion-col>
  -->
-
           <ion-card class="speaker-card" no-padding>
             <ion-card-header>
               <button ion-item detail-none (click)="goToSpeakerDetail(speaker)">

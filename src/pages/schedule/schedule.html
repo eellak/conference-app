@@ -38,6 +38,11 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher> -->
   <div [ngSwitch]="segment">
+
+    <ion-list-header  *ngIf="!shownSessionsDay_1">
+      No Sessions Found
+    </ion-list-header>
+
   <ion-list *ngSwitchCase="'day_one'">
 
     <ion-item-group *ngFor="let group of scheduleDataFirst | async" > <!--[hidden]="group.hide" -->
@@ -82,9 +87,6 @@
 
   </ion-list>
 
-     <ion-list-header  *ngIf="!shownSessionsDay_2">
-         No Sessions Found
-     </ion-list-header>
 
      <!--
      <ion-fab bottom right #fab>
