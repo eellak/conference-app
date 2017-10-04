@@ -5,17 +5,17 @@
 </ion-header>
 
 <ion-content padding class="speaker-detail">
-  <div text-center *ngIf="speaker">
+  <div *ngIf="speaker">
     <img [src]="speaker.profilePic" [alt]="speaker.name"><br>
     <div> </div>
 
-    <p text-start padding-left padding-right>{{speaker?.about}}</p>
-    <ion-note text-wrap>
+    <p text-center padding-left padding-right >{{speaker?.about}}</p>
+    <ion-note text-center text-wrap>
       {{speaker?.desc}}
     </ion-note>
     <div> </div>
     <div> </div>
-    <ion-item-divider sticky>
+    <ion-item-divider text-start sticky class="item_divider">
       Speaker's Sessions
     </ion-item-divider>
 

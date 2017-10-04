@@ -10,7 +10,7 @@
 <ion-content class="outer-content speaker-list">
   <ion-list >
     <ion-list-header *ngIf="!speakersListVal">
-      No Sessions Found
+     <b> No Speakers Found </b>
     </ion-list-header>
     <ion-grid fixed *ngFor="let speaker of speakers$Ref | async">
       <ion-row align-items-stretch>
@@ -42,7 +42,7 @@
                 </ion-grid>
 
                 <ion-item-divider sticky>
-                  Speaker's Sessions
+                  <b>Speaker's Sessions</b>
                 </ion-item-divider>
                 <button ion-item *ngFor="let session of speaker.session" (click)="goToSessionDetail(session,speaker.name)">
                   <h3>{{session.title}}</h3>

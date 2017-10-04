@@ -22,7 +22,8 @@ export interface PageInterface {
 }
 
 @Component({
-  templateUrl: 'app.template.html'
+  templateUrl: 'app.template.html',
+  selector: 'main-comp'
 })
 export class ConferenceApp {
   // the root nav is a child of the root app component

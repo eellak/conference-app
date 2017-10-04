@@ -12,6 +12,7 @@
 }
 
 
+
 // Name of the next breakpoint, or null for the last breakpoint.
 //
 //    >> breakpoint-next(sm)
@@ -65,5 +66,12 @@
     [hidden#{$infix}-down] {
       display: none;
     }
+  }
+}
+
+main-comp{
+  .menulist-item{
+    color : #148A40;
+    font-size: 1.9em;
   }
 }
