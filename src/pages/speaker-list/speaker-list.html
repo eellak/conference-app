@@ -29,12 +29,12 @@
 
             <ion-card-content class="outer-content">
               <ion-list>
-                <ion-grid no-padding no-margin>
+                <ion-grid no-padding no-margi (click)="goToSpeakerDetail(speaker)">
                   <ion-row>
                     <ion-col col-1>
                     </ion-col>
-                    <ion-col>
-                      <ion-note class="speaker_desc"  text-wrap>
+                    <ion-col >
+                      <ion-note class="speaker_desc" text-wrap >
                         {{speaker.desc}}
                       </ion-note>
                     </ion-col>
