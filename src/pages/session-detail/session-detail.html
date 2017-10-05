@@ -15,9 +15,9 @@
     <h4>
     {{speaker}}
   </h4>
-    <p>
+    <ion-note>
       {{(SessionObj | async)?.timeStart}} - {{(SessionObj | async)?.timeEnd}}
-    </p>
+    </ion-note>
     <div></div>
     <p>{{(SessionObj | async)?.location}}</p>
     <div></div>
@@ -28,9 +28,9 @@
     <h4>
       {{speaker}}
     </h4>
-    <p>
+    <ion-note>
       {{sessionParam?.timeStart}} - {{sessionParam?.timeEnd}}
-    </p>
+    </ion-note>
     <div></div>
     <p>{{sessionParam?.location}}</p>
     <div></div>
