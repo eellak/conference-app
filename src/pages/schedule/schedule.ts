@@ -114,8 +114,8 @@ export class SchedulePage implements OnInit{
     this.loader.present();
 
     this.getLikes().subscribe(val =>{
-      if(!val.val()){
 
+      if(!val.val()){
         this.scheduleDataFirst = <FirebaseListObservable<any[]>> this.database.list(`/schedule-day-1/0/groups`,{
           query:{
             orderByKey:true

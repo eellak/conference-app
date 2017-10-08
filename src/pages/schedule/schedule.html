@@ -141,7 +141,7 @@
       <ion-list-header *ngIf="!shownSessionsDay_2">
         No Sessions Found
       </ion-list-header>
-      <ion-item-group *ngFor="let group of scheduleDataSec | async" > <!--[hidden]="group.hide" -->
+      <ion-item-group *ngFor="let group of scheduleDataFirst | async" > <!--[hidden]="group.hide" -->
 
         <ion-item-divider sticky class="ion_item_schedule">
           <h2 class="ion_item_schedule_time">          <b>{{group.time}}</b>  </h2>

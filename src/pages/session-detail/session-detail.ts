@@ -63,13 +63,13 @@ export class SessionDetailPage {
     this.getDeviceID();
     this.data.database.ref('users-day-1/'+ this.deviceId + '/' + this.groupKey + '/sessions/').child(this.index).update({
       liked : 'true',
-      sanitized: 'true'
+      sanitized: 'false'
     }).catch(e =>{
       console.log(e);
     });
     this.LikeObj = <FirebaseObjectObservable<any>> this.data.object(`/users-day-1/${this.deviceId}/${this.groupKey}/sessions/${this.index}`).take(1);
     this.LikeObj.subscribe();
-    this.SessionObj = <FirebaseObjectObservable<any>> this.database.object(`/schedule-day-1/0/groups/${this.groupKey}/sessions/${this.index}`).take(1);
+    this.SessionObj = <FirebaseObjectObservable<any>> this.database.object(`/schedule-day-1/0/groups/${this.groupKey}/sessions/${this.index}`);
     this.SessionObj.subscribe();
 
   }
