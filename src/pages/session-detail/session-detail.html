@@ -22,6 +22,7 @@
     <p>{{(SessionObj | async)?.location}}</p>
     <div></div>
     <p>{{(SessionObj | async)?.description}}</p>
+    <!--<button ion-button block (click)="LoveSession()">Attend</button>-->
   </div>
   <div *ngIf="sessionParam">
     <h1 text-center > <b>{{sessionParam?.name}} </b></h1>
@@ -35,5 +36,11 @@
     <p>{{sessionParam?.location}}</p>
     <div></div>
     <p>{{sessionParam?.description}}</p>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <h2 class="attendance" text-center>{{sessionParam?.likes}} other participants will attend!</h2>
+    <button ion-button block (click)="LoveSession()" [disabled]="(LikeObj | async)?.liked == 'true'" >Attend</button>
   </div>
 </ion-content>

@@ -13,13 +13,17 @@ import { ConferenceData } from '../../providers/conference-data';
 export class SpeakerDetailPage {
   speaker: any;
 
+
   constructor(public dataProvider: ConferenceData,
               public navCtrl: NavController,
               public navParams: NavParams) {
 
   this.speaker = this.navParams.get('speaker');
 
+
   }
+
+
 
   ionViewWillEnter() {
     /*
@@ -37,6 +41,7 @@ export class SpeakerDetailPage {
   }
 
   goToSessionDetail(session: any) {
-    this.navCtrl.push('SessionDetailPage', { sessionId: session.id });
+    this.navCtrl.push('SessionDetailPage', {
+      sessionId: session.id });
   }
 }

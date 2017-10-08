@@ -1,8 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
 import { AlertController, App, FabContainer, ItemSliding, List, ModalController, NavController, ToastController, LoadingController, Refresher } from 'ionic-angular';
 
 import { Network } from '@ionic-native/network';
+import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 
 /*
   To learn how to use third party libs in an
@@ -15,14 +16,14 @@ import { UserData } from '../../providers/user-data';
 
 import { SessionDetailPage } from '../session-detail/session-detail';
 import { ScheduleFilterPage } from '../schedule-filter/schedule-filter';
-import {AngularFireDatabase, FirebaseListObservable} from "angularfire2/database";
+import {AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable} from "angularfire2/database";
 
 
 @Component({
   selector: 'page-schedule',
   templateUrl: 'schedule.html'
 })
-export class SchedulePage {
+export class SchedulePage implements OnInit{
   // the list is a child of the schedule page
   // @ViewChild('scheduleList') gets a reference to the list
   // with the variable #scheduleList, `read: List` tells it to return
@@ -45,6 +46,13 @@ export class SchedulePage {
   day_two = 'day_two';
   loader :any;
 
+  uuid : string ;
+  keyHelper: string;
+
+  //Likes
+  likesObject: FirebaseObjectObservable<any>;
+
+
   constructor(
     public alertCtrl: AlertController,
     public app: App,
@@ -54,44 +62,60 @@ export class SchedulePage {
     public toastCtrl: ToastController,
     public confData: ConferenceData,
     public user: UserData,
+    private uniqueDeviceID: UniqueDeviceID,
 
     public database : AngularFireDatabase,
     private network: Network) {
 
 
 
-        let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
-          //console.log('network was disconnected :-(');
-          let alert = this.alertCtrl.create({
-            title: 'Your Internet Is Closed ',
-            subTitle: 'Please turn on your Wifi',
-            buttons: ['OK']
-          });
-          alert.present();
+
+  }
+
+  ionViewDidLoad() {
+    this.app.setTitle('Πρόγραμμα');
+    //this.updateSchedule();
+  }
+
+  async ngOnInit(){
+    await this.uniqueDeviceID.get()
+      .then((uuid: any) =>{
+        console.log(uuid)
+        this.uuid = uuid;
+
+      }).catch((error: any) => console.log(error));
+
+    let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
+      //console.log('network was disconnected :-(');
+      let alert = this.alertCtrl.create({
+        title: 'Your Internet Is Closed ',
+        subTitle: 'Please turn on your Wifi',
+        buttons: ['OK']
+      });
+      alert.present();
 
 
-        });
-        disconnectSubscription.unsubscribe();
+    });
+    disconnectSubscription.unsubscribe();
+    // stop disconnect watch
+    // watch network for a connection
+    let connectSubscription = this.network.onConnect().subscribe(() => {
+      console.log('network connected!');
+      // We just got a connection but we need to wait briefly
+      // before we determine the connection type. Might need to wait.
+      // prior to doing any api requests as well.
 
-        // stop disconnect watch
 
+      setTimeout(() => {
+        if (this.network.type === 'wifi') {
+          console.log('we got a wifi connection, woohoo!');
+        }
+      }, 3000);
 
-        // watch network for a connection
-        let connectSubscription = this.network.onConnect().subscribe(() => {
-          console.log('network connected!');
-          // We just got a connection but we need to wait briefly
-          // before we determine the connection type. Might need to wait.
-          // prior to doing any api requests as well.
-          setTimeout(() => {
-            if (this.network.type === 'wifi') {
-              console.log('we got a wifi connection, woohoo!');
-            }
-          }, 3000);
+    });
+    connectSubscription.unsubscribe();
 
-        });
-        connectSubscription.unsubscribe();
-
-        // stop connect watch
+    // stop connect watch
     //Loader
     this.loader = this.loadingCtrl.create({
       content: "Please wait...",
@@ -99,17 +123,58 @@ export class SchedulePage {
     });
     this.loader.present();
 
-    this.scheduleDataFirst = this.database.list(`/schedule-day-1/0/groups`,{
-      query:{
-        orderByKey:true
+    this.getLikes('someid').subscribe(val =>{
+      if(!val.val()){
+        this.scheduleDataFirst = <FirebaseListObservable<any[]>> this.database.list(`/schedule-day-1/0/groups`,{
+          query:{
+            orderByKey:true
+          }
+        }).map(values =>{
+          return values.map(value =>{
+            this.keyHelper = value.$key;
+            value.sessions.forEach(ses =>{
+              console.log(ses);
+              console.log(ses.$key);
+              this.database.database.ref('users-day-1/'+ 'someid' + '/' + this.keyHelper + '/sessions/').child(ses.id).update({
+                liked : 'false',
+                sanitized : 'false'
+              });
+              ses.liked = 'false';
+            });
+            // this.database.database.ref('users-day-1/'+ this.uuid + '/' + values.$key + '/sessions/').child(value.$key).push({
+            //   liked : false
+            // });
+            return value;
+          })
+        });
+      }else{
+        this.scheduleDataFirst = <FirebaseListObservable<any[]>> this.database.list(`/schedule-day-1/0/groups`,{
+          query:{
+            orderByKey:true
+          }
+        });
+        //   .map(values =>{
+        //   return values.map(value =>{
+        //     this.keyHelper = value.$key;
+        //     return value.sessions.forEach(ses =>{
+        //       console.log(ses);
+        //     })
+        //   })
+        // })
+
       }
+
+      this.scheduleDataFirst.subscribe( data =>{
+        if(data){
+          this.shownSessionsDay_1 = true;
+        }
+        return data;
+      });
+
+
     });
-    this.scheduleDataFirst.subscribe( data =>{
-      if(data){
-        this.shownSessionsDay_1 = true;
-      }
-      return data;
-    });
+
+
 
     this.scheduleDataSec = this.database.list(`/schedule-day-2/0/groups`,{
       query:{
@@ -124,13 +189,6 @@ export class SchedulePage {
     });
     this.loader.dismiss();
 
-
-
-  }
-
-  ionViewDidLoad() {
-    this.app.setTitle('Schedule');
-    //this.updateSchedule();
   }
 
   updateSchedule() {
@@ -141,6 +199,13 @@ export class SchedulePage {
       //this.shownSessions = data.shownSessions;
       this.groups = data.groups;
     });
+  }
+
+  getLikes(deviceid : string){
+    this.likesObject = this.database.object(`/users-day-1/${deviceid}`,{preserveSnapshot: true});
+
+    return this.likesObject.take(1);
+
   }
 
   presentFilter() {
@@ -156,14 +221,47 @@ export class SchedulePage {
 
   }
 
-  goToSessionDetail(sessionData: any) {
+
+  getDeviceID(): string{
+    try {
+      this.uniqueDeviceID.get()
+        .then((uuid: any) => {
+          console.log(uuid)
+          this.uuid = uuid;
+        })
+    }catch(e) {
+      console.log(e);
+    }
+    return this.uuid;
+
+  }
+
+  LoveSession(group :any , session :any){
+    this.uuid = 'someid' //this.getDeviceID();
+    this.database.database.ref('users-day-1/'+ this.uuid + '/' + group + '/sessions/').child(session).update({
+      liked : 'true'
+    }).catch(e =>{
+      console.log(e);
+    });
+    console.log(group);
+    console.log(session);
+
+  }
+
+  goToSessionDetail(sessionData: any,index : any, groupKey : any ) {
     // go to the session detail page
     // and pass in the session data
+
 
     this.navCtrl.push(SessionDetailPage, {
        // sessionId: sessionData.id,
        // name: sessionData.name
-      session: sessionData
+      session: sessionData,
+      index: index,
+      groupKey: groupKey,
+      deviceId: 'someid'
+
+
     });
   }
 
