@@ -61,23 +61,19 @@
 
         <ion-grid>
           <ion-row>
-             <ion-col col-1>
-               <ion-icon small item-start color="{{session.color}}" name="{{session.icon}}">
-
-               </ion-icon>
+             <ion-col col-2>
+               <ion-icon class="iconic" color="{{session.color}}" name="{{session.icon}}"></ion-icon>
              </ion-col>
-             <ion-col col-9>
-               <h3 text-start>{{session.name}}</h3>
+             <ion-col col-8>
+               <h3 text-start text-wrap>{{session.name}}</h3>
                <p>
                  {{session.timeStart}} &mdash;
                  {{session.timeEnd}}:
                </p>
              </ion-col>
-             <ion-col col-2 >
-               <button ion-button icon-only clear color="favorite" >
-                 <ion-note>{{session?.likes}}</ion-note>
-                 <ion-icon name="happy"></ion-icon>
-               </button>
+             <ion-col col-2 class="likes_icon">
+                 <ion-note text-end >{{session?.likes}}</ion-note>
+                 <ion-icon icon-end name="happy"></ion-icon>
              </ion-col>
           </ion-row>
           <ion-row>
@@ -153,32 +149,33 @@
 
 
 
-        <ion-item *ngFor="let session of group.sessions" #slidingItem  >
+        <ion-item *ngFor="let session of group.sessions ; let i = index" #slidingItem  (click)="goToSessionDetail(session , i, group.$key)">
 
-          <button ion-item  (click)="goToSessionDetail(session)" >
-            <ion-icon small item-start color="{{session.color}}" name="{{session.icon}}">
-
-            </ion-icon>
-            <h3>{{session.name}}</h3>
-            <p>
-              {{session.timeStart}} &mdash;
-              {{session.timeEnd}}:
-            </p>
-            <p text-end>
-              {{session.location}}
-            </p>
-          </button>
-
-          <!--
-          <ion-item-options>
-            <button ion-button color="favorite" (click)="addFavorite(slidingItem, session)" *ngIf="segment === 'all'">
-              Favorite
-            </button>
-            <button ion-button color="danger" (click)="removeFavorite(slidingItem, session, 'Remove Favorite')" *ngIf="segment === 'favorites'">
-              Remove
-            </button>
-          </ion-item-options>
-          -->
+          <ion-grid>
+            <ion-row>
+              <ion-col col-2>
+                <ion-icon class="iconic" color="{{session.color}}" name="{{session.icon}}"></ion-icon>
+              </ion-col>
+              <ion-col col-8>
+                <h3 text-start text-wrap>{{session.name}}</h3>
+                <p>
+                  {{session.timeStart}} &mdash;
+                  {{session.timeEnd}}:
+                </p>
+              </ion-col>
+              <ion-col col-2 class="likes_icon">
+                <ion-note text-end >{{session?.likes}}</ion-note>
+                <ion-icon icon-end name="happy"></ion-icon>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col text-end>
+                <p text-end>
+                  {{session.location}}
+                </p>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
 
         </ion-item>
 
