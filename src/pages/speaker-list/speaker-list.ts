@@ -18,6 +18,7 @@ import "rxjs/add/operator/map"
 import "rxjs/add/operator/take"
 import "rxjs/add/operator/mergeMap"
 import "rxjs"
+import {UniqueDeviceID} from "@ionic-native/unique-device-id";
 
 
 export interface ActionSheetButton {
@@ -41,6 +42,8 @@ export class SpeakerListPage{
 
   loader : any;
   speakersListVal:any;
+
+  uuid: string;
   constructor(
     public actionSheetCtrl: ActionSheetController,
     public navCtrl: NavController,
@@ -48,11 +51,17 @@ export class SpeakerListPage{
     public config: Config,
     public inAppBrowser: InAppBrowser,
     public loadingCtrl : LoadingController,
+    private uniqueDeviceID: UniqueDeviceID,
 
     public database : AngularFireDatabase,
-    public databasesess : AngularFireDatabase,
   ) {
 
+    this.uniqueDeviceID.get()
+      .then((uuid: any) =>{
+        console.log(uuid)
+        this.uuid = uuid;
+
+      }).catch((error: any) => console.log(error));
 
     this.loader = this.loadingCtrl.create({
       content: "Please wait...",
@@ -86,7 +95,11 @@ export class SpeakerListPage{
     console.log(session);
     this.navCtrl.push(SessionDetailPage, {
       sessionPath: session.sessionKey,
-      speaker : speakerName
+      speaker : speakerName,
+      deviceId: this.uuid,
+      index: session.index,
+      groupKey: session.groupKey
+
     });
   }
 

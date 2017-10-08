@@ -39,14 +39,20 @@ export class SessionDetailPage {
     }else{
       this.sessionKey = this.navParams.get('sessionPath');
       this.speaker = this.navParams.get('speaker');
+      this.deviceId = 'someid'//this.navParams.get('deviceId');
+      this.index = this.navParams.get('index');
+      this.groupKey = this.navParams.get('groupKey');
+
+
       this.SessionObj = <FirebaseObjectObservable<any>> this.data.object(`${this.sessionKey}`).take(1);
-      this.SessionObj.subscribe(x =>{
-        console.log(x);
-      });
-      console.log(this.sessionParam);
+      this.SessionObj.subscribe(
+
+      );
+      this.LikeObj = <FirebaseObjectObservable<any>> this.data.object(`/users-day-1/${this.deviceId}/${this.groupKey}/sessions/${this.index}`).take(1);
+      this.LikeObj.subscribe();
+      console.log(this.LikeObj);
 
     }
-    console.log(this.sessionKey);
 
   }
 
