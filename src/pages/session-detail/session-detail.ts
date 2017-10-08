@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import {IonicPage, NavParams, ViewController} from 'ionic-angular';
+import {IonicPage, NavParams} from 'ionic-angular';
 
 import {AngularFireDatabase, FirebaseObjectObservable} from "angularfire2/database";
+import {UniqueDeviceID} from "@ionic-native/unique-device-id";
 
 @IonicPage({
   segment: 'session/:sessionId'
@@ -25,8 +26,8 @@ export class SessionDetailPage {
   constructor(
     public navParams: NavParams,
     public data : AngularFireDatabase,
-    public viewCtrl: ViewController,
-
+    public database : AngularFireDatabase,
+    private uniqueDeviceID: UniqueDeviceID
   ) {
     if(this.navParams.get('session')){
       this.sessionParam = this.navParams.get('session');
@@ -36,13 +37,13 @@ export class SessionDetailPage {
       this.SessionObj = <FirebaseObjectObservable<any>> this.data.object(`/schedule-day-1/0/groups/${this.groupKey}/sessions/${this.index}`).take(1);
       this.SessionObj.subscribe();
 
-      this.LikeObj = <FirebaseObjectObservable<any>> this.data.object(`/users-day-1/${this.deviceId}/${this.groupKey}/sessions/${this.index}`).take(1);
+      this.LikeObj = <FirebaseObjectObservable<any>> this.database.object(`/users-day-1/${this.deviceId}/${this.groupKey}/sessions/${this.index}`).take(1);
       this.LikeObj.subscribe();
 
     }else{
       this.sessionKey = this.navParams.get('sessionPath');
       this.speaker = this.navParams.get('speaker');
-      this.deviceId = 'someid'//this.navParams.get('deviceId');
+      this.deviceId = this.navParams.get('deviceId');
       this.index = this.navParams.get('index');
       this.groupKey = this.navParams.get('groupKey');
 
@@ -50,7 +51,7 @@ export class SessionDetailPage {
       this.SessionObj = <FirebaseObjectObservable<any>> this.data.object(`${this.sessionKey}`).take(1);
       this.SessionObj.subscribe();
 
-      this.LikeObj = <FirebaseObjectObservable<any>> this.data.object(`/users-day-1/${this.deviceId}/${this.groupKey}/sessions/${this.index}`).take(1);
+      this.LikeObj = <FirebaseObjectObservable<any>> this.database.object(`/users-day-1/${this.deviceId}/${this.groupKey}/sessions/${this.index}`).take(1);
       this.LikeObj.subscribe();
       console.log(this.LikeObj);
 
@@ -59,17 +60,31 @@ export class SessionDetailPage {
   }
 
   LoveSession(){
-    //this.deviceId = 'someid' //this.getDeviceID();
+    this.getDeviceID();
     this.data.database.ref('users-day-1/'+ this.deviceId + '/' + this.groupKey + '/sessions/').child(this.index).update({
       liked : 'true',
-      sanitized: 'false'
+      sanitized: 'true'
     }).catch(e =>{
       console.log(e);
     });
-    this.LikeObj = <FirebaseObjectObservable<any>> this.data.object(`/users-day-1/${this.deviceId}/${this.groupKey}/sessions/${this.index}`);
+    this.LikeObj = <FirebaseObjectObservable<any>> this.data.object(`/users-day-1/${this.deviceId}/${this.groupKey}/sessions/${this.index}`).take(1);
     this.LikeObj.subscribe();
-    this.SessionObj = <FirebaseObjectObservable<any>> this.data.object(`/schedule-day-1/0/groups/${this.groupKey}/sessions/${this.index}`);
+    this.SessionObj = <FirebaseObjectObservable<any>> this.database.object(`/schedule-day-1/0/groups/${this.groupKey}/sessions/${this.index}`).take(1);
     this.SessionObj.subscribe();
+
+  }
+
+  getDeviceID(): string{
+    try {
+      this.uniqueDeviceID.get()
+        .then((uuid: any) => {
+          console.log(uuid)
+          this.deviceId = uuid;
+        })
+    }catch(e) {
+      console.log(e);
+    }
+    return this.deviceId;
 
   }
 

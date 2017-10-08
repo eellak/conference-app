@@ -5,12 +5,6 @@ import { AlertController, App, FabContainer, ItemSliding, List, ModalController,
 import { Network } from '@ionic-native/network';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 
-/*
-  To learn how to use third party libs in an
-  Ionic app check out our docs here: http://ionicframework.com/docs/v2/resources/third-party-libs/
-*/
-// import moment from 'moment';
-
 import { ConferenceData } from '../../providers/conference-data';
 import { UserData } from '../../providers/user-data';
 
@@ -65,26 +59,11 @@ export class SchedulePage implements OnInit{
     private uniqueDeviceID: UniqueDeviceID,
 
     public database : AngularFireDatabase,
+    public data : AngularFireDatabase,
     private network: Network) {
 
 
-
-
-  }
-
-  ionViewDidLoad() {
-    this.app.setTitle('Πρόγραμμα');
-    //this.updateSchedule();
-  }
-
-  async ngOnInit(){
-    await this.uniqueDeviceID.get()
-      .then((uuid: any) =>{
-        console.log(uuid)
-        this.uuid = uuid;
-
-      }).catch((error: any) => console.log(error));
-
+    this.getDeviceID();
     let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
       //console.log('network was disconnected :-(');
       let alert = this.alertCtrl.create({
@@ -115,6 +94,17 @@ export class SchedulePage implements OnInit{
     });
     connectSubscription.unsubscribe();
 
+
+  }
+
+  ionViewDidLoad() {
+    this.app.setTitle('Πρόγραμμα');
+    this.uuid = this.getDeviceID();
+    //this.updateSchedule();
+  }
+
+  async ngOnInit(){
+    await this.getDeviceID();
     // stop connect watch
     //Loader
     this.loader = this.loadingCtrl.create({
@@ -123,8 +113,9 @@ export class SchedulePage implements OnInit{
     });
     this.loader.present();
 
-    this.getLikes('someid').subscribe(val =>{
+    this.getLikes().subscribe(val =>{
       if(!val.val()){
+
         this.scheduleDataFirst = <FirebaseListObservable<any[]>> this.database.list(`/schedule-day-1/0/groups`,{
           query:{
             orderByKey:true
@@ -135,11 +126,12 @@ export class SchedulePage implements OnInit{
             value.sessions.forEach(ses =>{
               console.log(ses);
               console.log(ses.$key);
-              this.database.database.ref('users-day-1/'+ 'someid' + '/' + this.keyHelper + '/sessions/').child(ses.id).update({
-                liked : 'false',
-                sanitized : 'false'
+              this.database.database.ref('users-day-1/'+ this.uuid + '/' + this.keyHelper + '/sessions/').child(ses.id).update({
+                  liked : 'false',
+                  sanitized : 'false'
               });
-              ses.liked = 'false';
+
+
             });
             // this.database.database.ref('users-day-1/'+ this.uuid + '/' + values.$key + '/sessions/').child(value.$key).push({
             //   liked : false
@@ -201,8 +193,9 @@ export class SchedulePage implements OnInit{
     });
   }
 
-  getLikes(deviceid : string){
-    this.likesObject = this.database.object(`/users-day-1/${deviceid}`,{preserveSnapshot: true});
+  getLikes(){
+    this.getDeviceID();
+    this.likesObject = this.data.object(`/users-day-1/${this.uuid}/`,{preserveSnapshot: true});
 
     return this.likesObject.take(1);
 
@@ -236,17 +229,6 @@ export class SchedulePage implements OnInit{
 
   }
 
-  LoveSession(group :any , session :any){
-    this.uuid = 'someid' //this.getDeviceID();
-    this.database.database.ref('users-day-1/'+ this.uuid + '/' + group + '/sessions/').child(session).update({
-      liked : 'true'
-    }).catch(e =>{
-      console.log(e);
-    });
-    console.log(group);
-    console.log(session);
-
-  }
 
   goToSessionDetail(sessionData: any,index : any, groupKey : any ) {
     // go to the session detail page
@@ -259,7 +241,7 @@ export class SchedulePage implements OnInit{
       session: sessionData,
       index: index,
       groupKey: groupKey,
-      deviceId: 'someid'
+      deviceId: this.getDeviceID()
 
 
     });

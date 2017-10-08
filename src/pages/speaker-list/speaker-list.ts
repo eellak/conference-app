@@ -99,7 +99,6 @@ export class SpeakerListPage{
       deviceId: this.uuid,
       index: session.index,
       groupKey: session.groupKey
-
     });
   }
 
