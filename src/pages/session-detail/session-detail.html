@@ -3,9 +3,6 @@
     <ion-title >{{(SessionObj | async)?.name}}</ion-title>
   </ion-navbar>
 
-  <ion-navbar *ngIf="sessionParam">
-    <ion-title >{{sessionParam?.name}}</ion-title>
-  </ion-navbar>
 </ion-header>
 
 <ion-content padding>
@@ -29,24 +26,5 @@
     <h2 class="attendance" text-center>{{(SessionObj | async)?.likes}} other participants will attend!</h2>
     <button ion-button block (click)="LoveSession()" [disabled]="(LikeObj | async)?.liked == 'true'" >Attend</button>
     <!--<button ion-button block (click)="LoveSession()">Attend</button>-->
-  </div>
-  <div *ngIf="sessionParam">
-    <h1 text-center > <b>{{sessionParam?.name}} </b></h1>
-    <h4>
-      {{speaker}}
-    </h4>
-    <ion-note>
-      {{sessionParam?.timeStart}} - {{sessionParam?.timeEnd}}
-    </ion-note>
-    <div></div>
-    <p>{{sessionParam?.location}}</p>
-    <div></div>
-    <p>{{sessionParam?.description}}</p>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <h2 class="attendance" text-center>{{sessionParam?.likes}} other participants will attend!</h2>
-    <button ion-button block (click)="LoveSession()" [disabled]="(LikeObj | async)?.liked == 'true'" >Attend</button>
   </div>
 </ion-content>

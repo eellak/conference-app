@@ -33,6 +33,9 @@ export class SessionDetailPage {
       this.index = this.navParams.get('index');
       this.groupKey = this.navParams.get('groupKey');
       this.deviceId = this.navParams.get('deviceId');
+      this.SessionObj = <FirebaseObjectObservable<any>> this.data.object(`/schedule-day-1/0/groups/${this.groupKey}/sessions/${this.index}`).take(1);
+      this.SessionObj.subscribe();
+
       this.LikeObj = <FirebaseObjectObservable<any>> this.data.object(`/users-day-1/${this.deviceId}/${this.groupKey}/sessions/${this.index}`).take(1);
       this.LikeObj.subscribe();
 
@@ -45,9 +48,8 @@ export class SessionDetailPage {
 
 
       this.SessionObj = <FirebaseObjectObservable<any>> this.data.object(`${this.sessionKey}`).take(1);
-      this.SessionObj.subscribe(
+      this.SessionObj.subscribe();
 
-      );
       this.LikeObj = <FirebaseObjectObservable<any>> this.data.object(`/users-day-1/${this.deviceId}/${this.groupKey}/sessions/${this.index}`).take(1);
       this.LikeObj.subscribe();
       console.log(this.LikeObj);
@@ -64,8 +66,10 @@ export class SessionDetailPage {
     }).catch(e =>{
       console.log(e);
     });
-    this.LikeObj = <FirebaseObjectObservable<any>> this.data.object(`/users-day-1/${this.deviceId}/${this.groupKey}/sessions/${this.index}`).take(1);
+    this.LikeObj = <FirebaseObjectObservable<any>> this.data.object(`/users-day-1/${this.deviceId}/${this.groupKey}/sessions/${this.index}`);
     this.LikeObj.subscribe();
+    this.SessionObj = <FirebaseObjectObservable<any>> this.data.object(`/schedule-day-1/0/groups/${this.groupKey}/sessions/${this.index}`);
+    this.SessionObj.subscribe();
 
   }
 
