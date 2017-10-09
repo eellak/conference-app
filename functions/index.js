@@ -8,7 +8,7 @@ const ref = admin.database().ref()
 
 exports.LikeCounter = functions.database
         .ref('users-day-1/{deviceid}/{groupid}/sessions/{sessionid}')
-        .onUpdate(event =>{
+        .onWrite(event =>{
             
             const deviceid = event.params.deviceid;
             const groupid = event.params.groupid;

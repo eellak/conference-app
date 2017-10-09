@@ -62,8 +62,6 @@ export class SchedulePage implements OnInit{
     public data : AngularFireDatabase,
     private network: Network) {
 
-
-    this.getDeviceID();
     let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
       //console.log('network was disconnected :-(');
       let alert = this.alertCtrl.create({
@@ -97,9 +95,9 @@ export class SchedulePage implements OnInit{
 
   }
 
-  ionViewDidLoad() {
+  ionViewWillLoad() {
     this.app.setTitle('Πρόγραμμα');
-    this.uuid = this.getDeviceID();
+    this.getDeviceID();
     //this.updateSchedule();
   }
 
@@ -120,24 +118,24 @@ export class SchedulePage implements OnInit{
           query:{
             orderByKey:true
           }
-        }).map(values =>{
-          return values.map(value =>{
-            this.keyHelper = value.$key;
-            value.sessions.forEach(ses =>{
-              console.log(ses);
-              console.log(ses.$key);
-              this.database.database.ref('users-day-1/'+ this.uuid + '/' + this.keyHelper + '/sessions/').child(ses.id).update({
-                  liked : 'false',
-                  sanitized : 'false'
-              });
-
-
-            });
-            // this.database.database.ref('users-day-1/'+ this.uuid + '/' + values.$key + '/sessions/').child(value.$key).push({
-            //   liked : false
-            // });
-            return value;
-          })
+        // }).map(values =>{
+        //   return values.map(value =>{
+        //     this.keyHelper = value.$key;
+        //     value.sessions.forEach(ses =>{
+        //       console.log(ses);
+        //       console.log(ses.$key);
+        //       // this.database.database.ref('users-day-1/'+ this.uuid + '/' + this.keyHelper + '/sessions/').child(ses.id).update({
+        //       //     liked : 'false',
+        //       //     sanitized : 'false'
+        //       // });
+        //
+        //
+        //     });
+        //     // this.database.database.ref('users-day-1/'+ this.uuid + '/' + values.$key + '/sessions/').child(value.$key).push({
+        //     //   liked : false
+        //     // });
+        //     return value;
+        //   })
         });
       }else{
         this.scheduleDataFirst = <FirebaseListObservable<any[]>> this.database.list(`/schedule-day-1/0/groups`,{
@@ -166,8 +164,6 @@ export class SchedulePage implements OnInit{
 
     });
 
-
-
     this.scheduleDataSec = this.database.list(`/schedule-day-2/0/groups`,{
       query:{
         orderByKey:true
@@ -194,10 +190,11 @@ export class SchedulePage implements OnInit{
   }
 
   getLikes(){
-    this.getDeviceID();
-    this.likesObject = this.data.object(`/users-day-1/${this.uuid}/`,{preserveSnapshot: true});
+      this.getDeviceID();
+      this.likesObject = this.data.object(`/users-day-1/${this.uuid}/`,{preserveSnapshot: true});
 
-    return this.likesObject.take(1);
+      return this.likesObject.take(1);
+
 
   }
 
@@ -215,7 +212,7 @@ export class SchedulePage implements OnInit{
   }
 
 
-  getDeviceID(): string{
+  getDeviceID(){
     try {
       this.uniqueDeviceID.get()
         .then((uuid: any) => {
@@ -225,8 +222,8 @@ export class SchedulePage implements OnInit{
     }catch(e) {
       console.log(e);
     }
-    return this.uuid;
 
+    return this.uuid;
   }
 
 
