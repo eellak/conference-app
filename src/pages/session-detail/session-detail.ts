@@ -46,7 +46,7 @@ export class SessionDetailPage {
       this.deviceId = this.navParams.get('deviceId');
       this.index = this.navParams.get('index');
       this.groupKey = this.navParams.get('groupKey');
-
+      this.getDeviceID();
 
       this.SessionObj = <FirebaseObjectObservable<any>> this.data.object(`${this.sessionKey}`).take(1);
       this.SessionObj.subscribe();
