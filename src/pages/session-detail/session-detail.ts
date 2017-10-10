@@ -27,8 +27,8 @@ export class SessionDetailPage {
     public navParams: NavParams,
     public data : AngularFireDatabase,
     public database : AngularFireDatabase,
-    private uniqueDeviceID: UniqueDeviceID
-  ) {
+    private uniqueDeviceID: UniqueDeviceID) {
+
     if(this.navParams.get('session')){
       this.sessionParam = this.navParams.get('session');
       this.index = this.navParams.get('index');
