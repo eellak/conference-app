@@ -49,5 +49,9 @@ page-schedule {
 
 .likes_icon{
   text-align: end;
-  color: color($colors, primary)
+  color: color($colors, primary);
+  ion-icon{
+    top: 0;
+    bottom: 0;
+  }
 }

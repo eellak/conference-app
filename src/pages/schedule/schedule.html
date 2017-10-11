@@ -45,9 +45,6 @@
     <ion-list-header  *ngIf="!shownSessionsDay_1">
       No Sessions Found
     </ion-list-header>
-    <ion-list-header *ngIf="uuid">
-      {{uuid}}
-    </ion-list-header>
 
     <ion-item-group *ngFor="let group of scheduleDataFirst | async" > <!--[hidden]="group.hide" -->
 
@@ -73,7 +70,7 @@
              </ion-col>
              <ion-col col-2 class="likes_icon">
                  <ion-note text-end >{{session?.likes}}</ion-note>
-                 <ion-icon icon-end name="happy"></ion-icon>
+                 <ion-icon icon-end name="star"></ion-icon>
              </ion-col>
           </ion-row>
           <ion-row>
@@ -104,17 +101,6 @@
           </p>
         </button> -->
 
-        <!--
-        <ion-item-options>
-          <button ion-button color="favorite" (click)="addFavorite(slidingItem, session)" *ngIf="segment === 'all'">
-            Favorite
-          </button>
-          <button ion-button color="danger" (click)="removeFavorite(slidingItem, session, 'Remove Favorite')" *ngIf="segment === 'favorites'">
-            Remove
-          </button>
-        </ion-item-options>
-        -->
-
       </ion-item>
 
 
@@ -122,17 +108,6 @@
 
   </ion-list>
 
-
-     <!--
-     <ion-fab bottom right #fab>
-       <button ion-fab><ion-icon name="share"></ion-icon></button>
-       <ion-fab-list side="top">
-         <button ion-fab color="vimeo" (click)="openSocial('Vimeo', fab)"><ion-icon name="logo-vimeo"></ion-icon></button>
-         <button ion-fab color="google" (click)="openSocial('Google+', fab)"><ion-icon name="logo-googleplus"></ion-icon></button>
-         <button ion-fab color="twitter" (click)="openSocial('Twitter', fab)"><ion-icon name="logo-twitter"></ion-icon></button>
-         <button ion-fab color="facebook" (click)="openSocial('Facebook', fab)"><ion-icon name="logo-facebook"></ion-icon></button>
-       </ion-fab-list>
-     </ion-fab> -->
   </div>
 
   <div [ngSwitch]="segment">
@@ -165,7 +140,7 @@
               </ion-col>
               <ion-col col-2 class="likes_icon">
                 <ion-note text-end >{{session?.likes}}</ion-note>
-                <ion-icon icon-end name="happy"></ion-icon>
+                <ion-icon icon-end name="star"></ion-icon>
               </ion-col>
             </ion-row>
             <ion-row>
@@ -184,18 +159,6 @@
 
     </ion-list>
 
-
-
-       <!--
-       <ion-fab bottom right #fab>
-         <button ion-fab><ion-icon name="share"></ion-icon></button>
-         <ion-fab-list side="top">
-           <button ion-fab color="vimeo" (click)="openSocial('Vimeo', fab)"><ion-icon name="logo-vimeo"></ion-icon></button>
-           <button ion-fab color="google" (click)="openSocial('Google+', fab)"><ion-icon name="logo-googleplus"></ion-icon></button>
-           <button ion-fab color="twitter" (click)="openSocial('Twitter', fab)"><ion-icon name="logo-twitter"></ion-icon></button>
-           <button ion-fab color="facebook" (click)="openSocial('Facebook', fab)"><ion-icon name="logo-facebook"></ion-icon></button>
-         </ion-fab-list>
-       </ion-fab> -->
   </div>
 
 </ion-content>

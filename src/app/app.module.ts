@@ -30,6 +30,7 @@ import {FIREBASE_CREDENTIALS} from "./firebase.credentials";
 import  {AngularFireDatabaseModule} from "angularfire2/database";
 import {Network} from "@ionic-native/network";
 import {UniqueDeviceID} from "@ionic-native/unique-device-id";
+import {AgmCoreModule} from "@agm/core";
 
 
 @NgModule({
@@ -66,7 +67,11 @@ import {UniqueDeviceID} from "@ionic-native/unique-device-id";
     }),
     AngularFireModule.initializeApp(FIREBASE_CREDENTIALS),
     IonicStorageModule.forRoot(),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCJ8HpEPGgRUCqq-hWwFoikSk12L2MgrOU'
+
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [

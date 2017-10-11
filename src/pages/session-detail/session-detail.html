@@ -23,7 +23,7 @@
     <div></div>
     <div></div>
     <div></div>
-    <h2 class="attendance" text-center>{{(SessionObj | async)?.likes}} other participants will attend!</h2>
+    <h2 class="attendance" text-center><b>{{(SessionObj | async)?.likes}} ακόμη θα παρευρεθούν!</b></h2>
     <button ion-button block (click)="LoveSession()" [disabled]="(LikeObj | async)?.liked == 'true'" >Attend</button>
     <!--<button ion-button block (click)="LoveSession()">Attend</button>-->
   </div>
