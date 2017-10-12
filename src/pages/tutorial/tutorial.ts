@@ -30,8 +30,8 @@ export class TutorialPage {
     let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
       //console.log('network was disconnected :-(');
       let alert = this.alertCtrl.create({
-        title: 'Your Internet Is Closed . .',
-        subTitle: 'Please Turn Your Internet Data On ',
+        title: 'No Internet Connection',
+        subTitle: 'Please turn it on and try again.',
         buttons: ['OK']
       });
       alert.present();

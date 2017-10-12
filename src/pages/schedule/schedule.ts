@@ -64,8 +64,8 @@ export class SchedulePage implements OnInit{
     let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
       //console.log('network was disconnected :-(');
       let alert = this.alertCtrl.create({
-        title: 'Your Internet Data Is Closed ',
-        subTitle: 'Please turn on your Wifi',
+        title: 'No Internet Connection',
+        subTitle: 'Please turn it on and try again.',
         buttons: ['OK']
       });
       alert.present();
@@ -126,7 +126,7 @@ export class SchedulePage implements OnInit{
       // stop connect watch
       //Loader
       this.loader = this.loadingCtrl.create({
-        content: "Please wait...",
+        content: "Παρακαλώ περιμένετε...",
         duration: 2500
       });
       this.loader.present();

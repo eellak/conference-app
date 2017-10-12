@@ -64,7 +64,7 @@ export class SpeakerListPage{
       }).catch((error: any) => console.log(error));
 
     this.loader = this.loadingCtrl.create({
-      content: "Please wait...",
+      content: "Παρακαλώ περιμένετε...",
       duration: 3000
     });
     this.loader.present();
