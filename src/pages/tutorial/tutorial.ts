@@ -36,9 +36,9 @@ export class TutorialPage {
       });
       alert.present();
 
-      disconnectSubscription.unsubscribe();
-
     });
+
+    disconnectSubscription.unsubscribe();
 
     // stop disconnect watch
 
@@ -54,9 +54,10 @@ export class TutorialPage {
           console.log('we got a wifi connection, woohoo!');
         }
       }, 1000);
-      connectSubscription.unsubscribe();
 
     });
+    connectSubscription.unsubscribe();
+
   }
 
   startApp() {

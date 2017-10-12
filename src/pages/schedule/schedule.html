@@ -54,7 +54,7 @@
 
 
 
-      <ion-item *ngFor="let session of group.sessions ; let i = index" #slidingItem  (click)="goToSessionDetail(session , i, group.$key)">
+      <ion-item *ngFor="let session of group.sessions ; let i = index" #slidingItem  (click)="goToSessionDetail(session , i, group.$key,'users-day-1')">
 
         <ion-grid>
           <ion-row>
@@ -124,7 +124,7 @@
 
 
 
-        <ion-item *ngFor="let session of group.sessions ; let i = index" #slidingItem  (click)="goToSessionDetail(session , i, group.$key)">
+        <ion-item *ngFor="let session of group.sessions ; let i = index" #slidingItem  (click)="goToSessionDetail(session , i, group.$key,'users-day-2')">
 
           <ion-grid>
             <ion-row>

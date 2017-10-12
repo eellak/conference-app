@@ -93,12 +93,15 @@ export class SpeakerListPage{
 
   goToSessionDetail(session: any, speakerName: any) {
     console.log(session);
+    var day = session.sessionKey.substring( 0, session.sessionKey.indexOf("/"));
+    console.log(day);
     this.navCtrl.push(SessionDetailPage, {
       sessionPath: session.sessionKey,
       speaker : speakerName,
       deviceId: this.uuid,
       index: session.index,
-      groupKey: session.groupKey
+      groupKey: session.groupKey,
+      day:day,
     });
   }
 
