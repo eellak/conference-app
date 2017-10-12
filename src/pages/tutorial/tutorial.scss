@@ -5,6 +5,9 @@ page-tutorial {
     border-color: transparent;
   }
 
+  ion-slides .swiper-pagination {
+    @extend .swiper-pagination-black }
+
   .slide-zoom {
     height: 100%;
   }
@@ -17,6 +20,12 @@ page-tutorial {
     max-height: 40%;
     max-width: 50%;
     margin: 36px 0;
+  }
+  .slide-image_ethniki {
+    max-height: 90%;
+    max-width: 94%;
+    margin: 36px 0;
+    margin-left: 3%;
   }
 
   b {
@@ -35,11 +44,13 @@ page-tutorial {
   }
 
   .slide_wind{
-    padding-top: 65px;
+    padding-top: 79px;
+
   }
 
+
   .slide_image_wind{
-    padding-top: 50px;
+    padding-top: 60px;
     margin-left: auto;
     margin-right: auto;
   }

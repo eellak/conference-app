@@ -64,7 +64,7 @@ export class SchedulePage implements OnInit{
     let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
       //console.log('network was disconnected :-(');
       let alert = this.alertCtrl.create({
-        title: 'Your Internet Is Closed ',
+        title: 'Your Internet Data Is Closed ',
         subTitle: 'Please turn on your Wifi',
         buttons: ['OK']
       });
@@ -120,39 +120,45 @@ export class SchedulePage implements OnInit{
   //   })
 
   async ngOnInit(){
-    await this.getDeviceID();
-    // stop connect watch
-    //Loader
-    this.loader = this.loadingCtrl.create({
-      content: "Please wait...",
-      duration: 2500
-    });
-    this.loader.present();
-      this.scheduleDataFirst = <FirebaseListObservable<any[]>> this.database.list(`/schedule-day-1/0/groups`,{
-          query:{
-            orderByKey:true
-          }
-        });
 
-      this.scheduleDataFirst.subscribe( data =>{
-        if(data){
+    try {
+      await this.getDeviceID();
+      // stop connect watch
+      //Loader
+      this.loader = this.loadingCtrl.create({
+        content: "Please wait...",
+        duration: 2500
+      });
+      this.loader.present();
+
+      this.scheduleDataFirst = <FirebaseListObservable<any[]>> this.database.list(`/schedule-day-1/0/groups`, {
+        query: {
+          orderByKey: true
+        }
+      });
+
+      this.scheduleDataFirst.subscribe(data => {
+        if (data) {
           this.shownSessionsDay_1 = true;
         }
         return data;
       });
 
 
-    this.scheduleDataSec = this.database.list(`/schedule-day-2/0/groups`,{
-      query:{
-        orderByKey:true
-      }
-    });
-    this.scheduleDataSec.subscribe( data =>{
-      if(data){
-        this.shownSessionsDay_2 = true;
-      }
-      return data;
-    });
+      this.scheduleDataSec = this.database.list(`/schedule-day-2/0/groups`, {
+        query: {
+          orderByKey: true
+        }
+      });
+      this.scheduleDataSec.subscribe(data => {
+        if (data) {
+          this.shownSessionsDay_2 = true;
+        }
+        return data;
+      });
+    }catch(e){
+      console.log(e);
+    }
     this.loader.dismiss();
 
   }

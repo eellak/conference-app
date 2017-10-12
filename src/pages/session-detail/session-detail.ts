@@ -41,17 +41,26 @@ export class SessionDetailPage {
       this.helper = this.day;
       if(this.day == 'users-day-1'){
         console.log(this.helper);
-        this.SessionObj = <FirebaseObjectObservable<any>> this.data.object(`/schedule-day-1/0/groups/${this.groupKey}/sessions/${this.index}`).take(1);
-        this.SessionObj.subscribe();
+        try {
+          this.SessionObj = <FirebaseObjectObservable<any>> this.data.object(`/schedule-day-1/0/groups/${this.groupKey}/sessions/${this.index}`).take(1);
+          this.SessionObj.subscribe();
 
-        this.LikeObj = <FirebaseObjectObservable<any>> this.database.object(`/${this.day}/${this.deviceId}/${this.groupKey}/sessions/${this.index}`).take(1);
-        this.LikeObj.subscribe();
+          this.LikeObj = <FirebaseObjectObservable<any>> this.database.object(`/${this.day}/${this.deviceId}/${this.groupKey}/sessions/${this.index}`).take(1);
+          this.LikeObj.subscribe();
+        }catch(e){
+          console.log(e);
+        }
       }else{
+        try{
         this.SessionObj = <FirebaseObjectObservable<any>> this.data.object(`/schedule-day-2/0/groups/${this.groupKey}/sessions/${this.index}`).take(1);
         this.SessionObj.subscribe();
 
         this.LikeObj = <FirebaseObjectObservable<any>> this.database.object(`/${this.day}/${this.deviceId}/${this.groupKey}/sessions/${this.index}`).take(1);
         this.LikeObj.subscribe();
+        }catch(e){
+          console.log(e);
+        }
+
       }
 
 
@@ -66,23 +75,29 @@ export class SessionDetailPage {
 
       if(this.day == 'schedule-day-1'){
         this.helper = 'users-day-1';
+        try{
+          this.SessionObj = <FirebaseObjectObservable<any>> this.data.object(`${this.sessionKey}`).take(1);
+          this.SessionObj.subscribe();
 
-        this.SessionObj = <FirebaseObjectObservable<any>> this.data.object(`${this.sessionKey}`).take(1);
-        this.SessionObj.subscribe();
-
-        this.LikeObj = <FirebaseObjectObservable<any>> this.database.object(`/users-day-1/${this.deviceId}/${this.groupKey}/sessions/${this.index}`).take(1);
-        this.LikeObj.subscribe();
-        console.log(this.LikeObj);
+          this.LikeObj = <FirebaseObjectObservable<any>> this.database.object(`/users-day-1/${this.deviceId}/${this.groupKey}/sessions/${this.index}`).take(1);
+          this.LikeObj.subscribe();
+          console.log(this.LikeObj);
+        }catch(e){
+          console.log(e);
+        }
       }else{
         this.helper = 'users-day-2';
 
+        try{
+          this.SessionObj = <FirebaseObjectObservable<any>> this.data.object(`${this.sessionKey}`).take(1);
+          this.SessionObj.subscribe();
 
-        this.SessionObj = <FirebaseObjectObservable<any>> this.data.object(`${this.sessionKey}`).take(1);
-        this.SessionObj.subscribe();
-
-        this.LikeObj = <FirebaseObjectObservable<any>> this.database.object(`/users-day-2/${this.deviceId}/${this.groupKey}/sessions/${this.index}`).take(1);
-        this.LikeObj.subscribe();
+          this.LikeObj = <FirebaseObjectObservable<any>> this.database.object(`/users-day-2/${this.deviceId}/${this.groupKey}/sessions/${this.index}`).take(1);
+          this.LikeObj.subscribe();
         console.log(this.LikeObj);
+        }catch(e){
+          console.log(e);
+        }
       }
 
 
@@ -100,15 +115,24 @@ export class SessionDetailPage {
     });
 
     if(date == 'users-day-1'){
-      this.LikeObj = await <FirebaseObjectObservable<any>> this.data.object(`/users-day-1/${this.deviceId}/${this.groupKey}/sessions/${this.index}`).take(1);
-      this.LikeObj.subscribe();
-      this.SessionObj = <FirebaseObjectObservable<any>> this.database.object(`/schedule-day-1/0/groups/${this.groupKey}/sessions/${this.index}`);
-      this.SessionObj.subscribe();
+      try{
+        this.LikeObj = await <FirebaseObjectObservable<any>> this.data.object(`/users-day-1/${this.deviceId}/${this.groupKey}/sessions/${this.index}`).take(1);
+        this.LikeObj.subscribe();
+        this.SessionObj = <FirebaseObjectObservable<any>> this.database.object(`/schedule-day-1/0/groups/${this.groupKey}/sessions/${this.index}`);
+        this.SessionObj.subscribe();
+      }catch(e){
+        console.log(e);
+      }
     }else{
-      this.LikeObj = await <FirebaseObjectObservable<any>> this.data.object(`/users-day-2/${this.deviceId}/${this.groupKey}/sessions/${this.index}`).take(1);
-      this.LikeObj.subscribe();
-      this.SessionObj = <FirebaseObjectObservable<any>> this.database.object(`/schedule-day-2/0/groups/${this.groupKey}/sessions/${this.index}`);
-      this.SessionObj.subscribe();
+      try{
+        this.LikeObj = await <FirebaseObjectObservable<any>> this.data.object(`/users-day-2/${this.deviceId}/${this.groupKey}/sessions/${this.index}`).take(1);
+        this.LikeObj.subscribe();
+        this.SessionObj = <FirebaseObjectObservable<any>> this.database.object(`/schedule-day-2/0/groups/${this.groupKey}/sessions/${this.index}`);
+        this.SessionObj.subscribe();
+      }catch(e){
+        console.log(e);
+      }
+
     }
 
 
