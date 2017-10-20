@@ -13,7 +13,7 @@
 
       <ion-list>
         <ion-list-header>
-          Navigate
+          Περιήγηση
         </ion-list-header>
         <button ion-item menuClose *ngFor="let p of appPages" (click)="openPage(p)">
           <ion-icon item-start [name]="p.icon" class="menulist-item"></ion-icon>
@@ -44,10 +44,13 @@
 
       <ion-list>
         <ion-list-header>
-          More
+          Περισσότερα
         </ion-list-header>
         <button ion-item menuClose (click)="openTutorial()">
           <ion-icon item-start name="star" class="menulist-item"></ion-icon>Χορηγοί
+        </button>
+        <button ion-item menuClose (click)="openDepartment()">
+          <ion-icon item-start name="school" class="menulist-item"></ion-icon>Το Τμήμα μας
         </button>
       </ion-list>
 

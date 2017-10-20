@@ -22,8 +22,6 @@ import { SpeakerDetailPage } from '../pages/speaker-detail/speaker-detail';
 import { SpeakerListPage } from '../pages/speaker-list/speaker-list';
 import { TabsPage } from '../pages/tabs-page/tabs-page';
 import { TutorialPage } from '../pages/tutorial/tutorial';
-import { SupportPage } from '../pages/support/support';
-
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
 import {FIREBASE_CREDENTIALS} from "./firebase.credentials";
@@ -31,6 +29,7 @@ import  {AngularFireDatabaseModule} from "angularfire2/database";
 import {Network} from "@ionic-native/network";
 import {UniqueDeviceID} from "@ionic-native/unique-device-id";
 import {AgmCoreModule} from "@agm/core";
+import {UniversityPage} from "../pages/university/university";
 
 
 @NgModule({
@@ -46,7 +45,7 @@ import {AgmCoreModule} from "@agm/core";
     SpeakerListPage,
     TabsPage,
     TutorialPage,
-    SupportPage
+    UniversityPage
   ],
   imports: [
     BrowserModule,
@@ -62,7 +61,6 @@ import {AgmCoreModule} from "@agm/core";
         { component: MapPage, name: 'Map', segment: 'map' },
         { component: AboutPage, name: 'About', segment: 'about' },
         { component: TutorialPage, name: 'Tutorial', segment: 'tutorial' },
-        { component: SupportPage, name: 'SupportPage', segment: 'support' }
       ]
     }),
     AngularFireModule.initializeApp(FIREBASE_CREDENTIALS),
@@ -86,7 +84,8 @@ import {AgmCoreModule} from "@agm/core";
     SpeakerListPage,
     TabsPage,
     TutorialPage,
-    SupportPage
+    UniversityPage
+
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },

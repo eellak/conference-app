@@ -9,6 +9,7 @@ import { TabsPage } from '../pages/tabs-page/tabs-page';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { SchedulePage } from '../pages/schedule/schedule';
 import { SpeakerListPage } from '../pages/speaker-list/speaker-list';
+import {UniversityPage} from "../pages/university/university";
 
 export interface PageInterface {
   title: string;
@@ -104,6 +105,10 @@ export class ConferenceApp {
     this.platform.ready().then(() => {
       this.splashScreen.hide();
     });
+  }
+
+  openDepartment(){
+    this.nav.push(UniversityPage);
   }
 
 }

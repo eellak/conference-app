@@ -1,22 +1,20 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 
-import { AlertController, App, List, ModalController, NavController, ToastController, LoadingController } from 'ionic-angular';
-
+import { AlertController, App, List, ModalController, NavController, LoadingController } from 'ionic-angular';
 import { Network } from '@ionic-native/network';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
-
-import { ConferenceData } from '../../providers/conference-data';
 import { UserData } from '../../providers/user-data';
 
 import { SessionDetailPage } from '../session-detail/session-detail';
 import {AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable} from "angularfire2/database";
+import {Subscription} from "rxjs/Subscription";
 
 
 @Component({
   selector: 'page-schedule',
   templateUrl: 'schedule.html'
 })
-export class SchedulePage implements OnInit{
+export class SchedulePage implements OnInit , OnDestroy{
   // the list is a child of the schedule page
   // @ViewChild('scheduleList') gets a reference to the list
   // with the variable #scheduleList, `read: List` tells it to return
@@ -35,6 +33,9 @@ export class SchedulePage implements OnInit{
   scheduleDataFirst : FirebaseListObservable<any[]>;
   scheduleDataSec : FirebaseListObservable<any[]>;
 
+  scheduleSubFirst : Subscription;
+  scheduleSubSec: Subscription;
+
   segment = 'day_one';
   day_two = 'day_two';
   loader :any;
@@ -52,8 +53,6 @@ export class SchedulePage implements OnInit{
     public loadingCtrl: LoadingController,
     public modalCtrl: ModalController,
     public navCtrl: NavController,
-    public toastCtrl: ToastController,
-    public confData: ConferenceData,
     public user: UserData,
     private uniqueDeviceID: UniqueDeviceID,
 
@@ -68,6 +67,7 @@ export class SchedulePage implements OnInit{
         subTitle: 'Please turn it on and try again.',
         buttons: ['OK']
       });
+
       alert.present();
 
 
@@ -81,7 +81,7 @@ export class SchedulePage implements OnInit{
       // before we determine the connection type. Might need to wait.
       // prior to doing any api requests as well.
 
-
+      this.ngOnInit();
       setTimeout(() => {
         if (this.network.type === 'wifi') {
           console.log('we got a wifi connection, woohoo!');
@@ -137,7 +137,7 @@ export class SchedulePage implements OnInit{
         }
       });
 
-      this.scheduleDataFirst.subscribe(data => {
+      this.scheduleSubFirst = this.scheduleDataFirst.subscribe(data => {
         if (data) {
           this.shownSessionsDay_1 = true;
         }
@@ -150,7 +150,7 @@ export class SchedulePage implements OnInit{
           orderByKey: true
         }
       });
-      this.scheduleDataSec.subscribe(data => {
+      this.scheduleSubSec = this.scheduleDataSec.subscribe(data => {
         if (data) {
           this.shownSessionsDay_2 = true;
         }
@@ -184,6 +184,11 @@ export class SchedulePage implements OnInit{
   //   });
   //
   // }
+
+  ngOnDestroy(){
+    this.scheduleSubFirst.unsubscribe();
+    this.scheduleSubSec.unsubscribe();
+  }
 
 
   getDeviceID(){
