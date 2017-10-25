@@ -13,10 +13,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import { ConferenceApp } from './app.component';
 
 import { AboutPage } from '../pages/about/about';
-import { PopoverPage } from '../pages/about-popover/about-popover';
 import { MapPage } from '../pages/map/map';
 import { SchedulePage } from '../pages/schedule/schedule';
-import { ScheduleFilterPage } from '../pages/schedule-filter/schedule-filter';
 import { SessionDetailPage } from '../pages/session-detail/session-detail';
 import { SpeakerDetailPage } from '../pages/speaker-detail/speaker-detail';
 import { SpeakerListPage } from '../pages/speaker-list/speaker-list';
@@ -37,9 +35,7 @@ import {UniversityPage} from "../pages/university/university";
     ConferenceApp,
     AboutPage,
     MapPage,
-    PopoverPage,
     SchedulePage,
-    ScheduleFilterPage,
     SessionDetailPage,
     SpeakerDetailPage,
     SpeakerListPage,
@@ -55,7 +51,6 @@ import {UniversityPage} from "../pages/university/university";
         { component: TabsPage, name: 'TabsPage', segment: 'tabs-page' },
         { component: SchedulePage, name: 'Schedule', segment: 'schedule' },
         { component: SessionDetailPage, name: 'SessionDetail', segment: 'sessionDetail/:sessionId' },
-        { component: ScheduleFilterPage, name: 'ScheduleFilter', segment: 'scheduleFilter' },
         { component: SpeakerListPage, name: 'SpeakerList', segment: 'speakerList' },
         { component: SpeakerDetailPage, name: 'SpeakerDetail', segment: 'speakerDetail/:speakerId' },
         { component: MapPage, name: 'Map', segment: 'map' },
@@ -76,9 +71,7 @@ import {UniversityPage} from "../pages/university/university";
     ConferenceApp,
     AboutPage,
     MapPage,
-    PopoverPage,
     SchedulePage,
-    ScheduleFilterPage,
     SessionDetailPage,
     SpeakerDetailPage,
     SpeakerListPage,

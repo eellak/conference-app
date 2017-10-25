@@ -1,11 +1,11 @@
 {
     "name": "FossComm",
-    "version": "0.0.1",
-    "description": "An Ionic project",
+    "version": "1.0.0",
+    "description": "FossComm 2017",
     "license": "Apache-2.0",
     "repository": {
         "type": "git",
-        "url": "https://github.com/ionic-team/ionic-conference-app.git"
+        "url": "https://github.com/dithua/FossComm-2017-HUA"
     },
     "scripts": {
         "build": "ionic-app-scripts build",
@@ -34,7 +34,6 @@
         "@ionic/storage": "2.0.1",
         "angularfire2": "^4.0.0-rc.2",
         "cordova-android": "^6.2.3",
-        "cordova-ios": "^4.5.1",
         "cordova-plugin-crosswalk-webview": "^2.3.0",
         "cordova-plugin-device": "^1.1.4",
         "cordova-plugin-inappbrowser": "^1.4.0",
@@ -62,8 +61,7 @@
     },
     "cordova": {
         "platforms": [
-            "android",
-            "ios"
+            "android"
         ],
         "plugins": {
             "cordova-plugin-crosswalk-webview": {

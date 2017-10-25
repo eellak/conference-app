@@ -52,11 +52,11 @@ export class SessionDetailPage {
         }
       }else{
         try{
-        this.SessionObj = <FirebaseObjectObservable<any>> this.data.object(`/schedule-day-2/0/groups/${this.groupKey}/sessions/${this.index}`).take(1);
-        this.SessionObj.subscribe();
+          this.SessionObj = <FirebaseObjectObservable<any>> this.data.object(`/schedule-day-2/0/groups/${this.groupKey}/sessions/${this.index}`).take(1);
+          this.SessionObj.subscribe();
 
-        this.LikeObj = <FirebaseObjectObservable<any>> this.database.object(`/${this.day}/${this.deviceId}/${this.groupKey}/sessions/${this.index}`).take(1);
-        this.LikeObj.subscribe();
+          this.LikeObj = <FirebaseObjectObservable<any>> this.database.object(`/${this.day}/${this.deviceId}/${this.groupKey}/sessions/${this.index}`).take(1);
+          this.LikeObj.subscribe();
         }catch(e){
           console.log(e);
         }
@@ -106,13 +106,20 @@ export class SessionDetailPage {
   }
 
   async LikeSession(date: string){
-    this.getDeviceID();
-    this.data.database.ref(date +'/'+ this.deviceId + '/' + this.groupKey + '/sessions/').child(this.index).update({
-      liked : 'true',
-      sanitized: 'false'
-    }).catch(e =>{
+      this.getDeviceID();
+    try{
+
+      this.data.database.ref(date +'/'+ this.deviceId + '/' + this.groupKey + '/sessions/').child(this.index).update({
+        liked : 'true',
+        sanitized: 'false'
+      }).catch(e =>{
+        console.log(e);
+      });
+
+    }catch(e){
       console.log(e);
-    });
+    }
+
 
     if(date == 'users-day-1'){
       try{

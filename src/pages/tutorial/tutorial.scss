@@ -53,7 +53,7 @@ page-tutorial {
   }
 
   .slide_wind{
-    margin-top: 83.8px;
+    margin-top: 107.8px;
 
   }
 
@@ -66,6 +66,22 @@ page-tutorial {
 
   .slide-title_ellak{
     padding-top: 40px;
+  }
+
+  .slide_image_ots{
+    padding-top: 15%;
+    height: 30%;
+  }
+
+  .slide_title_ots{
+    padding-top: 8%;
+
+  }
+
+  .text_container{
+    height: 315px;
+    max-height: 315px;
+    overflow-y: scroll;
   }
 
 }

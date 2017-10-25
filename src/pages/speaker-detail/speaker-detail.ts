@@ -24,22 +24,6 @@ export class SpeakerDetailPage {
   }
 
 
-
-  ionViewWillEnter() {
-    /*
-    this.dataProvider.load().subscribe((data: any) => {
-      if (data && data.speakers) {
-        for (const speaker of data.speakers) {
-          if (speaker && speaker.id === this.navParams.data.speakerId) {
-            this.speaker = speaker;
-            break;
-          }
-        }
-      }
-    });*/
-
-  }
-
   goToSessionDetail(session: any) {
     this.navCtrl.push('SessionDetailPage', {
       sessionId: session.id });
