@@ -8,11 +8,11 @@
   <div *ngIf="speaker">
     <img [src]="speaker.profilePic" [alt]="speaker.name" class="image_speaker"><br>
     <div> </div>
-
-    <p text-center padding-left padding-right >{{speaker?.about}}</p>
     <ion-note text-center text-wrap>
       {{speaker?.desc}}
     </ion-note>
+    <p text-center padding-left padding-right >{{speaker?.about}}</p>
+
     <div> </div>
     <div> </div>
     <ion-item-divider text-start sticky class="item_divider">
