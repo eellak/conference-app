@@ -13,30 +13,12 @@
       </ion-segment-button>
     </ion-segment>
 
-<!--  (ionChange)="updateSchedule()"
-    <ion-buttons end>
-      <button ion-button icon-only (click)="presentFilter()">
-        <ion-icon ios="ios-options-outline" md="md-options"></ion-icon>
-      </button>
-    </ion-buttons>
-
-  <ion-toolbar no-border-top>
-    <ion-searchbar color="primary"
-                   [(ngModel)]="queryText"
-                   (ionInput)="updateSchedule()"
-                   placeholder="Search">
-    </ion-searchbar>
-  </ion-toolbar> -->
   </ion-navbar>
 
 
 </ion-header>
 
 <ion-content>
-  <!--
-  <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher> -->
   <div [ngSwitch]="segment">
 
 
@@ -49,7 +31,7 @@
     <ion-item-group *ngFor="let group of scheduleDataFirst | async" > <!--[hidden]="group.hide" -->
 
       <ion-item-divider sticky class="ion_item_schedule">
-          <h2 class="ion_item_schedule_time">        <b>{{group.time}}</b>    </h2>
+          <h2 class="ion_item_schedule_time">        <b>{{group?.time}}</b>    </h2>
       </ion-item-divider>
 
 
@@ -59,13 +41,13 @@
         <ion-grid>
           <ion-row>
              <ion-col col-2>
-               <ion-icon class="iconic" color="{{session.color}}" name="{{session.icon}}"></ion-icon>
+               <ion-icon class="iconic" color="{{session?.color}}" name="{{session?.icon}}"></ion-icon>
              </ion-col>
              <ion-col col-8>
-               <h3 text-start text-wrap>{{session.name}}</h3>
+               <h3 text-start text-wrap>{{session?.name}}</h3>
                <p>
-                 {{session.timeStart}} &mdash;
-                 {{session.timeEnd}}:
+                 {{session?.timeStart}} &mdash;
+                 {{session?.timeEnd}}:
                </p>
              </ion-col>
              <ion-col col-2 class="likes_icon">
@@ -76,30 +58,11 @@
           <ion-row>
             <ion-col text-end>
             <p text-end>
-              {{session.location}}
+              {{session?.location}}
             </p>
             </ion-col>
           </ion-row>
         </ion-grid>
-
-        <!--
-        <button ion-item  (click)="goToSessionDetail(session)" >
-          <ion-icon small item-start color="{{session.color}}" name="{{session.icon}}">
-
-          </ion-icon>
-          <h3>{{session.name}}</h3>
-          <p>
-            {{session.timeStart}} &mdash;
-            {{session.timeEnd}}:
-          </p>
-          <button ion-button icon-only clear color="danger">
-            <ion-icon icon-end name="heart"></ion-icon>
-            <p>100</p>
-          </button>
-          <p text-end>
-            {{session.location}}
-          </p>
-        </button> -->
 
       </ion-item>
 
@@ -119,7 +82,7 @@
       <ion-item-group *ngFor="let group of scheduleDataSec | async" > <!--[hidden]="group.hide" -->
 
         <ion-item-divider sticky class="ion_item_schedule">
-          <h2 class="ion_item_schedule_time">          <b>{{group.time}}</b>  </h2>
+          <h2 class="ion_item_schedule_time">          <b>{{group?.time}}</b>  </h2>
         </ion-item-divider>
 
 
@@ -129,13 +92,13 @@
           <ion-grid>
             <ion-row>
               <ion-col col-2>
-                <ion-icon class="iconic" color="{{session.color}}" name="{{session.icon}}"></ion-icon>
+                <ion-icon class="iconic" color="{{session?.color}}" name="{{session?.icon}}"></ion-icon>
               </ion-col>
               <ion-col col-8>
-                <h3 text-start text-wrap>{{session.name}}</h3>
+                <h3 text-start text-wrap>{{session?.name}}</h3>
                 <p>
-                  {{session.timeStart}} &mdash;
-                  {{session.timeEnd}}:
+                  {{session?.timeStart}} &mdash;
+                  {{session?.timeEnd}}:
                 </p>
               </ion-col>
               <ion-col col-2 class="likes_icon">
@@ -146,7 +109,7 @@
             <ion-row>
               <ion-col text-end>
                 <p text-end>
-                  {{session.location}}
+                  {{session?.location}}
                 </p>
               </ion-col>
             </ion-row>

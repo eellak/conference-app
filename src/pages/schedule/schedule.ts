@@ -1,12 +1,12 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 
-import { AlertController, App, List, ModalController, NavController, LoadingController } from 'ionic-angular';
+import { AlertController, App, List, NavController, LoadingController } from 'ionic-angular';
 import { Network } from '@ionic-native/network';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 import { UserData } from '../../providers/user-data';
 
 import { SessionDetailPage } from '../session-detail/session-detail';
-import {AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable} from "angularfire2/database";
+import {AngularFireDatabase, FirebaseListObservable} from "angularfire2/database";
 import {Subscription} from "rxjs/Subscription";
 
 
@@ -21,14 +21,10 @@ export class SchedulePage implements OnInit , OnDestroy{
   // the List and not a reference to the element
   @ViewChild('scheduleList', { read: List }) scheduleList: List;
   //
-  // dayIndex = 0;
-  // queryText = '';
-  //
-  // excludeTracks: any = [];
+
   shownSessionsDay_1: any = false;
   shownSessionsDay_2: any = false;
   groups: any = [];
-  // confDate: string;
 
   scheduleDataFirst : FirebaseListObservable<any[]>;
   scheduleDataSec : FirebaseListObservable<any[]>;
@@ -41,17 +37,12 @@ export class SchedulePage implements OnInit , OnDestroy{
   loader :any;
 
   uuid : string ;
-  keyHelper: string;
-
-  //Likes
-  likesObject: FirebaseObjectObservable<any>;
 
 
   constructor(
     public alertCtrl: AlertController,
     public app: App,
     public loadingCtrl: LoadingController,
-    public modalCtrl: ModalController,
     public navCtrl: NavController,
     public user: UserData,
     private uniqueDeviceID: UniqueDeviceID,
@@ -84,7 +75,7 @@ export class SchedulePage implements OnInit , OnDestroy{
       this.ngOnInit();
       setTimeout(() => {
         if (this.network.type === 'wifi') {
-          console.log('we got a wifi connection, woohoo!');
+          console.log('we got a wifi connection!');
         }
       }, 3000);
 
@@ -225,90 +216,4 @@ export class SchedulePage implements OnInit , OnDestroy{
     });
   }
 
-  // addFavorite(slidingItem: ItemSliding, sessionData: any) {
-  //
-  //   if (this.user.hasFavorite(sessionData.name)) {
-  //     // woops, they already favorited it! What shall we do!?
-  //     // prompt them to remove it
-  //     this.removeFavorite(slidingItem, sessionData, 'Favorite already added');
-  //   } else {
-  //     // remember this session as a user favorite
-  //     this.user.addFavorite(sessionData.name);
-  //
-  //     // create an alert instance
-  //     let alert = this.alertCtrl.create({
-  //       title: 'Favorite Added',
-  //       buttons: [{
-  //         text: 'OK',
-  //         handler: () => {
-  //           // close the sliding item
-  //           slidingItem.close();
-  //         }
-  //       }]
-  //     });
-  //     // now present the alert on top of all other content
-  //     alert.present();
-  //   }
-  //
-  // }
-  //
-  // removeFavorite(slidingItem: ItemSliding, sessionData: any, title: string) {
-  //   let alert = this.alertCtrl.create({
-  //     title: title,
-  //     message: 'Would you like to remove this session from your favorites?',
-  //     buttons: [
-  //       {
-  //         text: 'Cancel',
-  //         handler: () => {
-  //           // they clicked the cancel button, do not remove the session
-  //           // close the sliding item and hide the option buttons
-  //           slidingItem.close();
-  //         }
-  //       },
-  //       {
-  //         text: 'Remove',
-  //         handler: () => {
-  //           // they want to remove this session from their favorites
-  //           this.user.removeFavorite(sessionData.name);
-  //           this.updateSchedule();
-  //
-  //           // close the sliding item and hide the option buttons
-  //           slidingItem.close();
-  //         }
-  //       }
-  //     ]
-  //   });
-  //   // now present the alert on top of all other content
-  //   alert.present();
-  // }
-  //
-  // openSocial(network: string, fab: FabContainer) {
-  //   let loading = this.loadingCtrl.create({
-  //     content: `Posting to ${network}`,
-  //     duration: (Math.random() * 1000) + 500
-  //   });
-  //   loading.onWillDismiss(() => {
-  //     fab.close();
-  //   });
-  //   loading.present();
-  // }
-  //
-  // doRefresh(refresher: Refresher) {
-  //   this.confData.getTimeline(this.dayIndex, this.queryText, this.excludeTracks, this.segment).subscribe((data: any) => {
-  //     //this.shownSessions = data.shownSessions;
-  //     this.groups = data.groups;
-  //
-  //     // simulate a network request that would take longer
-  //     // than just pulling from out local json file
-  //     setTimeout(() => {
-  //       refresher.complete();
-  //
-  //       const toast = this.toastCtrl.create({
-  //         message: 'Sessions have been updated.',
-  //         duration: 3000
-  //       });
-  //       toast.present();
-  //     }, 1000);
-  //   });
-  // }
 }

@@ -4,6 +4,17 @@ import { Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 
+
+// Deactivated Providers for Static Data Use.
+//No Firebase Connections or Use
+
+
+
+
+
+
+////!!!!!!!!!!!!!
+
 @Injectable()
 export class UserData {
   _favorites: string[] = [];

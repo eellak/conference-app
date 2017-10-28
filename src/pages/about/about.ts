@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { PopoverController } from 'ionic-angular';
 
 @Component({
   selector: 'page-about',
@@ -8,7 +7,7 @@ import { PopoverController } from 'ionic-angular';
 export class AboutPage {
   conferenceDate = '4-5 Νοεμβρίου';
 
-  constructor(public popoverCtrl: PopoverController) { }
+  constructor() { }
 
   // presentPopover(event: Event) {
   //   let popover = this.popoverCtrl.create(PopoverPage);

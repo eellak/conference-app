@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 
-import { Platform } from 'ionic-angular';
-
 
 
 @Component({
@@ -15,7 +13,7 @@ export class MapPage {
   lng: number = 23.708069;
 
 
-  constructor( public platform: Platform) {
+  constructor() {
   }
 
 

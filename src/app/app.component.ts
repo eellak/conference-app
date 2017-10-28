@@ -34,7 +34,6 @@ export class ConferenceApp {
   // List of pages that can be navigated to from the left menu
   // the left menu only works after login
   // the login page disables the left menu
-  //Πρόγραμμα , Ομιλητές , Χάρτης ,
   appPages: PageInterface[] = [
     { title: 'Πρόγραμμα', name: 'TabsPage', component: TabsPage, tabComponent: SchedulePage, index: 0, icon: 'calendar' },
     { title: 'Ομιλητές', name: 'TabsPage', component: TabsPage, tabComponent: SpeakerListPage, index: 1, icon: 'contacts' },
@@ -54,17 +53,6 @@ export class ConferenceApp {
     this.rootPage = TutorialPage;
     this.platformReady()
 
-
-    // load the conference data
-    //confData.load();
-
-    // decide which menu items should be hidden by current login status stored in local storage
-    /*
-    this.userData.hasLoggedIn().then((hasLoggedIn) => {
-      this.enableMenu(hasLoggedIn === true);
-    });*/
-
-    //this.listenToLoginEvents();
   }
 
   openPage(page: PageInterface) {

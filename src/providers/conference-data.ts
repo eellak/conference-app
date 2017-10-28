@@ -9,6 +9,16 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 
 
+
+// Deactivated Providers for Static Data Use.
+//No Firebase Connections or Use
+
+
+
+
+
+
+////!!!!!!!!!!!!!
 @Injectable()
 export class ConferenceData {
   data: any;
