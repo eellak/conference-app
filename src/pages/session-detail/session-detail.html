@@ -16,7 +16,7 @@
       {{(SessionObj | async)?.timeStart}} - {{(SessionObj | async)?.timeEnd}}
     </ion-note>
     <div></div>
-    <p>{{(SessionObj | async)?.location}}</p>
+    <p><b>{{(SessionObj | async)?.location}}</b></p>
     <div></div>
     <p>{{(SessionObj | async)?.description}}</p>
     <div></div>
@@ -28,7 +28,7 @@
       <h2 *ngIf="(SessionObj | async)?.likes == 1"><b>{{(SessionObj | async)?.likes}} ακόμη θα παρευρεθεί!</b> </h2>
       <h2 *ngIf="(SessionObj | async)?.likes == 0"> </h2>
     </h2>
-    <button ion-button block (click)="LikeSession(helper)" [disabled]="(LikeObj | async)?.liked == 'true'" >Attend</button>
+    <button ion-button block (click)="LikeSession(helper)" [disabled]="(LikeObj | async)?.liked == 'true'" >Θα Παρευρεθω!</button>
     <!--<button ion-button block (click)="LoveSession()">Attend</button>-->
   </div>
 </ion-content>
