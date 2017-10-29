@@ -7,21 +7,30 @@
 <ion-content padding class="speaker-detail">
   <div *ngIf="speaker">
     <img [src]="speaker.profilePic" [alt]="speaker.name" class="image_speaker"><br>
-    <div> </div>
-    <ion-note text-center text-wrap>
-      {{speaker?.desc}}
-    </ion-note>
+    <div text-center class="keynote" *ngIf="speaker?.keynote">
+      <ion-note >
+        <b>{{speaker?.keynote}}</b>
+      </ion-note>
+      <p></p>
+    </div>
+    <div text-center>
+
+      <ion-note text-wrap>
+        {{speaker?.desc}}
+      </ion-note>
+      <p></p>
+    </div>
     <p text-center padding-left padding-right >{{speaker?.about}}</p>
 
-    <div> </div>
-    <div> </div>
+    <div *ngIf="speaker.session">
     <ion-item-divider text-start sticky class="item_divider">
-      Speaker's Sessions
+      Ομιλίες
     </ion-item-divider>
 
     <ion-item *ngFor="let session of speaker.session">
       <h2>{{session?.title}}</h2>
     </ion-item>
+    </div>
   </div>
 
 </ion-content>

@@ -38,13 +38,15 @@
                   </ion-row>
                 </ion-grid>
 
-                <ion-item-divider sticky>
-                  <b>Ομιλίες</b>
-                </ion-item-divider>
-                <button ion-item *ngFor="let session of speaker.session" (click)="goToSessionDetail(session,speaker.name)">
-                  <h3>{{session?.title}}</h3>
-                  <ion-icon item-end name="arrow-forward" ></ion-icon>
-                </button>
+                <div *ngIf="speaker.session">
+                  <ion-item-divider sticky>
+                    <b>Ομιλίες</b>
+                  </ion-item-divider>
+                  <button ion-item *ngFor="let session of speaker.session" (click)="goToSessionDetail(session,speaker.name)">
+                    <h3>{{session?.title}}</h3>
+                    <ion-icon item-end name="arrow-forward" ></ion-icon>
+                  </button>
+                </div>
 
               </ion-list>
             </ion-card-content>

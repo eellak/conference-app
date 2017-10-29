@@ -6,6 +6,14 @@
 
 .speaker-detail p {
   color: #60646B;
+
+}
+
+.keynote{
+  padding-top: 25px;
+    //margin-right: auto;
+    //margin-left: auto;
+
 }
 
 .item_divider{
@@ -16,4 +24,7 @@
   margin-left: auto;
   margin-right: auto;
   display: block;
+  height: 120px;
+  width: 120px;
+  max-height: 120px;
 }
