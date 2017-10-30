@@ -21,8 +21,19 @@
     <p>{{(SessionObj | async)?.description}}</p>
     <div></div>
     <div></div>
-    <div></div>
-    <div></div>
+    <p></p>
+    <p></p>
+    <div *ngIf="(SessionObj | async)?.speakerNames">
+      <ion-item-divider text-start sticky class="item_divider">
+        Ομιλητές
+      </ion-item-divider>
+      <ion-item *ngFor="let session of (SessionObj | async)?.speakerNames">
+        <h2 text-wrap>{{session?.fullName}}</h2>
+      </ion-item>
+    </div>
+    <p></p>
+    <p></p>
+    <p></p>
     <h2 class="attendance" text-center>
       <h2 *ngIf="(SessionObj | async)?.likes >= 2"><b>{{(SessionObj | async)?.likes}} ακόμη θα παρευρεθούν! </b></h2>
       <h2 *ngIf="(SessionObj | async)?.likes == 1"><b>{{(SessionObj | async)?.likes}} ακόμη θα παρευρεθεί!</b> </h2>
