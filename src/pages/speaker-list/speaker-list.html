@@ -10,7 +10,7 @@
 <ion-content class="outer-content speaker-list">
   <ion-list >
     <ion-list-header *ngIf="!speakersListVal">
-     <b> No Speakers Found </b>
+     <b> No Speakers Found, Turn On Your Wifi </b>
     </ion-list-header>
     <ion-grid fixed *ngFor="let speaker of speakers$Ref | async">
       <ion-row align-items-stretch>

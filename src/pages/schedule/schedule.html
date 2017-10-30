@@ -25,7 +25,7 @@
 
   <ion-list *ngSwitchCase="'day_one'">
     <ion-list-header  *ngIf="!shownSessionsDay_1">
-      No Sessions Found
+      No Sessions Found , Turn On Your Wifi
     </ion-list-header>
 
     <ion-item-group *ngFor="let group of scheduleDataFirst | async" > <!--[hidden]="group.hide" -->
@@ -58,7 +58,7 @@
           <ion-row>
             <ion-col text-end>
             <p text-end>
-              {{session?.location}}
+              <b>{{session?.location}}</b>
             </p>
             </ion-col>
           </ion-row>
@@ -77,7 +77,7 @@
 
     <ion-list *ngSwitchCase="'day_two'">
       <ion-list-header *ngIf="!shownSessionsDay_2">
-        No Sessions Found
+        No Sessions Found, Turn On Your Wifi
       </ion-list-header>
       <ion-item-group *ngFor="let group of scheduleDataSec | async" > <!--[hidden]="group.hide" -->
 
@@ -109,7 +109,7 @@
             <ion-row>
               <ion-col text-end>
                 <p text-end>
-                  {{session?.location}}
+                  <b>{{session?.location}}</b>
                 </p>
               </ion-col>
             </ion-row>
