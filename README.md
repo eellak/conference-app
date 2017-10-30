@@ -1,17 +1,18 @@
 # Ionic Conference Application for FossComm 2017 with Angular and Firebase
-##
-##
-##
+
+
+
 # Table of Contents
  - [Getting Started](#getting-started)
  - [Contributing](#contributing)
  - [Use Cases](#use-cases)
  - [App Preview](#app-preview)
 
-##
-##
+
+
+
 # Getting Started
-##
+
 The project was creating based on https://github.com/ionic-team/ionic-conference-app. The ionic team uses static data ,in this example ,from json files.
 
 In FossComm 2017 App we selected to use data from a Web Service .That's when Firebase takes part.
