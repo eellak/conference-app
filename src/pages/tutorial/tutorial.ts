@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 
 import {AlertController, MenuController, NavController, Slides} from 'ionic-angular';
 
@@ -15,7 +15,6 @@ import {Network} from "@ionic-native/network";
 export class TutorialPage {
   showSkip = true;
 
-	@ViewChild('slides') slides: Slides;
 
   constructor(
     public navCtrl: NavController,
