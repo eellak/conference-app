@@ -1,5 +1,6 @@
 # Ionic Conference Application for FossComm 2017 with Angular and Firebase
 
+Download for Android : https://play.google.com/store/apps/details?id=gr.huafosscomm.hua
 
 
 # Table of Contents
