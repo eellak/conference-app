@@ -183,14 +183,16 @@ export class SchedulePage implements OnInit , OnDestroy{
 
 
   getDeviceID(){
-    try {
-      this.uniqueDeviceID.get()
-        .then((uuid: any) => {
-          console.log(uuid)
-          this.uuid = uuid;
-        })
-    }catch(e) {
-      console.log(e);
+    if(!this.uuid) {
+      try {
+        this.uniqueDeviceID.get()
+          .then((uuid: any) => {
+            console.log(uuid)
+            this.uuid = uuid;
+          })
+      } catch (e) {
+        console.log(e);
+      }
     }
 
     return this.uuid;
@@ -209,7 +211,7 @@ export class SchedulePage implements OnInit , OnDestroy{
       session: sessionData,
       index: index,
       groupKey: groupKey,
-      deviceId: this.getDeviceID(),
+      deviceId: this.uuid,
       day: day,
 
 

@@ -2,13 +2,10 @@ import {Component} from '@angular/core';
 
 import {
   ActionSheet,
-  ActionSheetController,
   Config, LoadingController,
   NavController
 } from 'ionic-angular';
-import { InAppBrowser } from '@ionic-native/in-app-browser';
 
-import { ConferenceData } from '../../providers/conference-data';
 
 import { SessionDetailPage } from '../session-detail/session-detail';
 import { SpeakerDetailPage } from '../speaker-detail/speaker-detail';
@@ -17,7 +14,6 @@ import "rxjs/add/operator/map"
 import "rxjs/add/operator/take"
 import "rxjs/add/operator/mergeMap"
 import "rxjs"
-import {UniqueDeviceID} from "@ionic-native/unique-device-id";
 
 
 export interface ActionSheetButton {
@@ -44,23 +40,12 @@ export class SpeakerListPage{
 
   uuid: string;
   constructor(
-    public actionSheetCtrl: ActionSheetController,
     public navCtrl: NavController,
-    public confData: ConferenceData,
     public config: Config,
-    public inAppBrowser: InAppBrowser,
     public loadingCtrl : LoadingController,
-    private uniqueDeviceID: UniqueDeviceID,
-
     public database : AngularFireDatabase,
   ) {
 
-    this.uniqueDeviceID.get()
-      .then((uuid: any) =>{
-        console.log(uuid)
-        this.uuid = uuid;
-
-      }).catch((error: any) => console.log(error));
 
     this.loader = this.loadingCtrl.create({
       content: "Παρακαλώ περιμένετε...",

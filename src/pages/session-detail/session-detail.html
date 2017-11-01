@@ -20,7 +20,9 @@
     <div></div>
     <p>{{(SessionObj | async)?.description}}</p>
     <div></div>
-    <div></div>
+    <div *ngIf="(SessionObj | async)?.requirement">
+      <ion-note color="danger">{{(SessionObj | async)?.requirement}}</ion-note>
+    </div>
     <p></p>
     <p></p>
     <div *ngIf="(SessionObj | async)?.speakerNames">

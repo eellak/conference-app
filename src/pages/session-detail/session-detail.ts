@@ -146,14 +146,16 @@ export class SessionDetailPage {
   }
 
   getDeviceID(): string{
-    try {
-      this.uniqueDeviceID.get()
-        .then((uuid: any) => {
-          console.log(uuid)
-          this.deviceId = uuid;
-        })
-    }catch(e) {
-      console.log(e);
+    if(!this.deviceId) {
+      try {
+        this.uniqueDeviceID.get()
+          .then((uuid: any) => {
+            console.log(uuid)
+            this.deviceId = uuid;
+          })
+      } catch (e) {
+        console.log(e);
+      }
     }
     return this.deviceId;
 

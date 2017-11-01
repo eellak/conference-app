@@ -62,7 +62,7 @@ import {UniversityPage} from "../pages/university/university";
     IonicStorageModule.forRoot(),
     AngularFireDatabaseModule,
     AgmCoreModule.forRoot({
-      apiKey: 'YOUR - KEY'
+      apiKey: 'AIzaSyCJ8HpEPGgRUCqq-hWwFoikSk12L2MgrOU'
 
     })
   ],
