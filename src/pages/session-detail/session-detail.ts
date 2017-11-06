@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {IonicPage, NavParams} from 'ionic-angular';
+import {IonicPage, NavParams, ToastController} from 'ionic-angular';
 
 import {AngularFireDatabase, FirebaseObjectObservable} from "angularfire2/database";
 import {UniqueDeviceID} from "@ionic-native/unique-device-id";
@@ -30,7 +30,8 @@ export class SessionDetailPage {
     public navParams: NavParams,
     public data : AngularFireDatabase,
     public database : AngularFireDatabase,
-    private uniqueDeviceID: UniqueDeviceID) {
+    private uniqueDeviceID: UniqueDeviceID,
+    private toastCtrl : ToastController) {
 
     if(this.navParams.get('session')){
       this.sessionParam = this.navParams.get('session');
@@ -106,19 +107,29 @@ export class SessionDetailPage {
   }
 
   async LikeSession(date: string){
-      this.getDeviceID();
+    this.getDeviceID();
     try{
 
-      this.data.database.ref(date +'/'+ this.deviceId + '/' + this.groupKey + '/sessions/').child(this.index).update({
-        liked : 'true',
-        sanitized: 'false'
-      }).catch(e =>{
-        console.log(e);
-      });
+      if(this.deviceId) {
+        this.data.database.ref(date + '/' + this.deviceId + '/' + this.groupKey + '/sessions/').child(this.index).update({
+          liked: 'true',
+          sanitized: 'false'
+        }).catch(e => {
+          console.log(e);
+        });
+      }else{
+
+        this.toastCtrl.create({
+          message : `Your Unique Device ID Is Not Specified , Try Again`,
+          duration : 2000
+        }).present();
+
+      }
 
     }catch(e){
       console.log(e);
     }
+
 
 
     if(date == 'users-day-1'){

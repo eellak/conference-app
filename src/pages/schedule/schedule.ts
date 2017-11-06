@@ -113,7 +113,6 @@ export class SchedulePage implements OnInit , OnDestroy{
   async ngOnInit(){
 
     try {
-      await this.getDeviceID();
       // stop connect watch
       //Loader
       this.loader = this.loadingCtrl.create({
@@ -150,7 +149,11 @@ export class SchedulePage implements OnInit , OnDestroy{
     }catch(e){
       console.log(e);
     }
+
     this.loader.dismiss();
+
+    this.getDeviceID();
+
 
   }
 
