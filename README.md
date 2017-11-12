@@ -1,5 +1,7 @@
 # Ionic Conference Application for FossComm 2017 with Angular and Firebase
 
+MIT License -- Apache 2.0 License
+
 Download for Android : https://play.google.com/store/apps/details?id=gr.huafosscomm.hua
 
 Contact Developer : Leonidas Loupos https://github.com/LeoLoupos https://www.linkedin.com/in/leonidas-loupos-636401150/
