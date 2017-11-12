@@ -2,6 +2,7 @@
 
 Download for Android : https://play.google.com/store/apps/details?id=gr.huafosscomm.hua
 
+Contact Developer : Leonidas Loupos https://github.com/LeoLoupos https://www.linkedin.com/in/leonidas-loupos-636401150/
 
 # Table of Contents
  - [Getting Started](#getting-started)
